@@ -11,7 +11,6 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +20,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'age',
+        'gender',
+        'profile_picture'
     ];
 
     /**
@@ -45,4 +48,31 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // One-to-Many: User has many Meditations
+    public function meditations()
+    {
+        return $this->hasMany(Meditation::class);
+    }
+
+    // One-to-Many: User has many ToDoLists
+    public function toDoLists()
+    {
+        return $this->hasMany(ToDoList::class);
+    }
+
+    // One-to-Many: User has many Analytics
+    public function analytics()
+    {
+        return $this->hasMany(Analytic::class);
+    }
+
+    // Many-to-Many: User belongs to many Achievements
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'users_achievements')
+                    ->withPivot('status')
+                    ->withTimestamps();
+    }
+
 }
