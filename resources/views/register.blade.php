@@ -4,6 +4,17 @@
     <div class="d-flex justify-content-center align-items-center" style="height: 75vh;">
         <div class="col-lg-3">
                 
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('registerAccount') }}" method="POST">
                 @csrf
                 <h1 class="d-flex justify-content-center mb-3">Register Your Account</h1>
@@ -54,10 +65,10 @@
                 </div>
                 {{-- conf_password --}}
                 <div class="form-floating mb-3">
-                    <input class="w-100" type="password" name="confirm_password" id="confirm_password" class="form-control"
-                        required>
-                    <label for="password">Confirm Password</label>
+                    <input class="w-100" type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
+                    <label for="password_confirmation">Confirm Password</label>
                 </div>
+                
                 {{-- button --}}
                 <div class="d-flex justify-content-center align-items-center">
                     <button class="w-50" type="submit">Register</button>

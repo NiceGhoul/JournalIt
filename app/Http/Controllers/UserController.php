@@ -27,8 +27,7 @@ class UserController extends Controller
             'password.confirmed' => 'Password Does not match!'
         ]);
 
-        dd($validatedData);
-
+        // dd($validatedData);
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
