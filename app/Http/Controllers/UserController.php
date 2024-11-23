@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    // page logic
     public function getLoginPage(){
         return view('login');
     }
@@ -15,6 +17,8 @@ class UserController extends Controller
     public function showRegisterPage(){
         return view('register');
     }
+
+    // user register logic
     public function store(Request $request){
         
         $validatedData = $request->validate([
@@ -27,7 +31,6 @@ class UserController extends Controller
             'password.confirmed' => 'Password Does not match!'
         ]);
 
-        // dd($validatedData);
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
@@ -36,14 +39,32 @@ class UserController extends Controller
             'password' => Hash::make($validatedData['password'])
         ]);
 
-        // User::create([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'age' => $request->age,
-        //     'gender' => $request->gender,
-        //     'password' => Hash::make($request->password)
-        // ]);
-
         return redirect()->route('login')->with('success','account succesfully created!');
+    }
+    // User Login logic
+    public function accountLogin(Request $request){
+
+        $input = $request->validate([
+            'name' => 'required',
+            'password' =>  'required'
+        ]);
+
+        $user = User::where('name', $input['name'])->first();
+
+        if(Hash::check($input['password'], $user->password)){
+            Auth::login($user);
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }else{
+            return back()->withErrors('name or password is incorrect!');
+        }
+    }
+
+    public function accountLogout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

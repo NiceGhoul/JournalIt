@@ -74,6 +74,10 @@
                     <button class="w-50" type="submit">Register</button>
                 </div>
             </form>
+
+            <div class="d-flex justify-content-center align-items-center mt-3">
+                <p> Already got an account? <a href="{{ route('showLogin') }}">Login</a> here!</p>
+            </div>
         </div>
     </div>
 @endsection
