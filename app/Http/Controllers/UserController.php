@@ -43,7 +43,7 @@ class UserController extends Controller
             'profile_picture' => 'image/DefaultProfile.jpg'
         ]);
 
-        return redirect()->route('showLogin')->with('success', 'account succesfully created!');
+        return redirect()->route('login')->with('success', 'account succesfully created!');
     }
     // User Login logic
     public function accountLogin(Request $request)

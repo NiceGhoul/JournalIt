@@ -44,7 +44,7 @@
                         @guest
                             <!-- Show Register and Login if user is not logged in -->
                             <li><a class="dropdown-item" href="{{ route('showRegister') }}">Register</a></li>
-                            <li><a class="dropdown-item" href="{{ route('showLogin') }}">Login</a></li>
+                            <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
                         @endguest
                     </ul>
                 </li>
