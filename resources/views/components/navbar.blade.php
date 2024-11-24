@@ -28,9 +28,24 @@
                         Profile
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Profile Page</a></li>
-                        <li><a class="dropdown-item" href="{{ route('showRegister') }}">Register</a></li>
-                        <li><a class="dropdown-item" href="{{ route('showLogin') }}">Login</a></li>
+                        @auth
+                            <li><a class="dropdown-item" href="{{ route('ProfilePage') }}">Profile Page</a></li>
+                            <!-- Show Logout if user is logged in -->
+                            <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                   Logout
+                                </a>
+                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        @endauth
+
+                        @guest
+                            <!-- Show Register and Login if user is not logged in -->
+                            <li><a class="dropdown-item" href="{{ route('showRegister') }}">Register</a></li>
+                            <li><a class="dropdown-item" href="{{ route('showLogin') }}">Login</a></li>
+                        @endguest
                     </ul>
                 </li>
             </ul>

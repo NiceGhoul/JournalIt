@@ -10,24 +10,27 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     // page logic
-    public function getLoginPage(){
+    public function getLoginPage()
+    {
         return view('login');
     }
 
-    public function showRegisterPage(){
+    public function showRegisterPage()
+    {
         return view('register');
     }
 
     // user register logic
-    public function store(Request $request){
-        
+    public function store(Request $request)
+    {
+
         $validatedData = $request->validate([
             'name' => 'required|min:5|max:255|unique:users',
             'email' => 'required|email|unique:users',
             'age' => 'required|integer|between:5,100',
-            'gender'=>'required|in:male,female,no-say',
+            'gender' => 'required|in:male,female,no-say',
             'password' => 'required|min:5|max:255|confirmed',
-        ],[
+        ], [
             'password.confirmed' => 'Password Does not match!'
         ]);
 
@@ -36,13 +39,15 @@ class UserController extends Controller
             'email' => $validatedData['email'],
             'age' => $validatedData['age'],
             'gender' => $validatedData['gender'],
-            'password' => Hash::make($validatedData['password'])
+            'password' => Hash::make($validatedData['password']),
+            'profile_picture' => 'image/DefaultProfile.jpg'
         ]);
 
-        return redirect()->route('login')->with('success','account succesfully created!');
+        return redirect()->route('showLogin')->with('success', 'account succesfully created!');
     }
     // User Login logic
-    public function accountLogin(Request $request){
+    public function accountLogin(Request $request)
+    {
 
         $input = $request->validate([
             'name' => 'required',
@@ -51,11 +56,11 @@ class UserController extends Controller
 
         $user = User::where('name', $input['name'])->first();
 
-        if(Hash::check($input['password'], $user->password)){
+        if (Hash::check($input['password'], $user->password)) {
             Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended('/');
-        }else{
+        } else {
             return back()->withErrors('name or password is incorrect!');
         }
     }
@@ -66,5 +71,30 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('profile', ['user' => $user]);
+    }
+
+    public function uploadProfilePicture(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        // Store the uploaded image
+        $path = $request->file('profile_picture')->move(public_path('images'), $request->file('profile_picture')->getClientOriginalName());
+
+        // Save the path relative to the public folder in the database
+        $user->update([
+            'profile_picture' => 'images/' . $request->file('profile_picture')->getClientOriginalName(),
+        ]);
+
+        return back()->with('success', 'Profile picture updated successfully!');
     }
 }
