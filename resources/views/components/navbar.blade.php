@@ -29,8 +29,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Profile Page</a></li>
-                        <li><a class="dropdown-item" href="#">Register</a></li>
-                        <li><a class="dropdown-item" href="#">Login</a></li>
+                        <li><a class="dropdown-item" href="{{ route('showRegister') }}">Register</a></li>
+                        <li><a class="dropdown-item" href="{{ route('showLogin') }}">Login</a></li>
                     </ul>
                 </li>
             </ul>
