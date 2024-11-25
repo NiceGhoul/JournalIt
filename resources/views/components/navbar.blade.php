@@ -14,7 +14,7 @@
                     <a class="nav-link" href="#">Meditate</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">To-Do List</a>
+                    <a class="nav-link" href="{{ route('ToDoList') }}">To-Do List</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Analytics</a>

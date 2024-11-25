@@ -1,5 +1,20 @@
 @extends('components.layout')
 @section('content')
+    <!-- Success Alert -->
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <!-- Error Alert -->
+    @if (session()->has('fail'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('fail') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="d-flex flex-column mb-2 mt-4 align-items-center">
         <div class="card" style="width: 25rem; height: 28rem;">
             <div class="card-body d-flex flex-column align-items-center position-relative">

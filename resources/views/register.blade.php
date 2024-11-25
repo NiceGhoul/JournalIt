@@ -76,7 +76,7 @@
             </form>
 
             <div class="d-flex justify-content-center align-items-center mt-3">
-                <p> Already got an account? <a href="{{ route('showLogin') }}">Login</a> here!</p>
+                <p> Already got an account? <a href="{{ route('login') }}">Login</a> here!</p>
             </div>
         </div>
     </div>
