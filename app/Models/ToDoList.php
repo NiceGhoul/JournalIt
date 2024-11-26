@@ -10,12 +10,14 @@ class ToDoList extends Model
     /** @use HasFactory<\Database\Factories\ToDoListFactory> */
     use HasFactory;
     protected $fillable = [
-        'user_id',
         'name',
+        'to_do_date',
+        'logo',
+        'target',
+        'progress',
+        'user_id',
         'date_added',
         'status',
-        'logo',
-        'analytic_id'
     ];
     // Many-to-One: ToDoList belongs to a User
     public function user()
