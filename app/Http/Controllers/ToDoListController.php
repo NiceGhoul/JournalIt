@@ -26,7 +26,6 @@ class ToDoListController extends Controller
             'status' => 'Pending',
             'user_id' => Auth::id(),
             'date_added' => now(),
-            'status' => 'Pending',
         ]);
 
         return redirect()->back()->with('success', 'To-Do List created successfully!');
@@ -41,10 +40,18 @@ class ToDoListController extends Controller
 
         return view('todolist', compact('toDoLists'));
     }
+    public function showHistory()
+    {
+        $user = Auth::user();
+        $toDoLists = ToDoList::where('user_id', $user->id)
+            ->where('status', 'Finished')
+            ->get();
+
+        return view('todolisthistory', compact('toDoLists'));
+    }
     public function updateProgress(Request $request, $id)
     {
         $todo = ToDoList::findOrFail($id);
-
         // Update progress
         $todo->progress += $request->input('progress');
 

@@ -19,4 +19,5 @@ Route::get('/register', [UserController::class, 'showRegisterPage'])->name('show
 Route::post('/register', [UserController::class, 'store'])->name('registerAccount');
 Route::post('/upload-profile-picture', [UserController::class, 'uploadProfilePicture'])->name('uploadProfilePicture');
 Route::get('/todolist', [ToDoListController::class, 'show'])->name('ToDoList');
+Route::get('/todolist/history', [ToDoListController::class, 'showHistory'])->name('ToDoListHistory');
 Route::post('/addtodolist', [ToDoListController::class, 'store'])->name('AddToDoList');
