@@ -1,5 +1,7 @@
 @extends('components.layout')
 
+@section('title', 'Register')
+
 @section('content')
     <div class="d-flex justify-content-center align-items-center" style="height: 75vh;">
         <div class="col-lg-3">

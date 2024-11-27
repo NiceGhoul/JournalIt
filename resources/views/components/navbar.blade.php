@@ -1,113 +1,79 @@
-<style>
-    /* Override Bootstrap Navbar Styles */
-    .navbar {
-        background-color: #0674B4 !important; /* Bootstrap primary blue */
-        color: white;
-    }
-    .navbar .navbar-nav .nav-link {
-        color: white; /* Ensures nav links are visible against the blue background */
-    }
-    .navbar .navbar-brand {
-        color: white;
-    }
-    .navbar .btn-outline-success {
-        color: white;
-        border-color: white;
-    }
-    .navbar .btn-outline-success:hover {
-        background-color: white;
-        color: #007bff;
-    }
-    .navbar .navbar-toggler {
-        border-color: white;
-    }
-    .navbar .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-    }
-    .profile-btn {
-        display: inline-flex;
-        align-items: center;
-        background-color: #0674B4;
-        border-radius: 25px;
-        padding: 5px 15px;
-        color: white;
-        text-decoration: none;
-    }
-    .profile-img {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: white;
-        margin: 0.5rem;
-    }
-    .profile-img img {
-        height: 100%;
-        width: auto;
-        min-width: 100%;
-        object-fit: cover;
-    }
-</style>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('homePage')}}">(Logo Disini)</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+<nav class="navbar-custom w-full">
+    <div class="container mx-auto flex flex-wrap items-center justify-between py-2">
+        <a href="{{ route('homePage') }}" class="text-white text-lg font-bold">
+            Jurnalit Logo
+        </a>
+
+
+        <button id="navbarToggle" class="lg:hidden text-white focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
         </button>
-        <div class="" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{route('homePage')}}">Home</a>
+
+        @auth
+        <div id="navbarMenu" class="hidden w-full lg:flex lg:w-auto lg:items-center p-2">
+            <ul class="flex flex-col lg:flex-row lg:space-x-6">
+                <li>
+                    <a href="{{ route('homePage') }}" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('meditationPage')}}">Meditate</a>
+                <li>
+                    <a href="{{ route('meditationPage') }}" class="nav-link">Meditate</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('ToDoList') }}">To-Do List</a>
+                <li>
+                    <a href="{{ route('ToDoList') }}" class="nav-link">To-do List</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Analytics</a>
+                <li>
+                    <a href="#" class="nav-link">Analytics</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Achievements</a>
+                <li>
+                    <a href="#" class="nav-link">Achievements</a>
                 </li>
             </ul>
-            <div class="ms-auto">
-                <div class="profile-box bg-success rounded-pill d-inline-flex">
-                    <div class="profile-img">
-                        <img src="{{asset('image/DefaultProfile.jpg')}}" alt="Profile Image" class="rounded-circle">
-                    </div>
-                    <ul class="navbar-nav align-self-center">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Profile
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                @auth
-                                    <li><a class="dropdown-item" href="{{ route('ProfilePage') }}">Profile Page</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                           Logout
-                                        </a>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                @endauth
-                                @guest
-                                    <li><a class="dropdown-item" href="{{ route('showRegister') }}">Register</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                                @endguest
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+        </div>
+
+        
+        <div class="profile-box">
+            <div class="profile-img">
+                <img src="{{ asset(auth()->user()->profile_picture) }}" alt="Profile">
+            </div>
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-black" href="#" id="profileDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ auth()->user()->name }}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="{{ route('ProfilePage') }}">Profile Page</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </ul>
             </div>
         </div>
+        @endauth
+
+        @guest
+        <div class="flex space-x-4 p-2 bg-blue-400 rounded-lg m-2 transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+            @if (Route::currentRouteName() == 'login')
+            <a href="{{ route('showRegister') }}" class="nav-link text-white ">Register</a>
+            @else
+            <a href="{{ route('login') }}" class="nav-link text-white">Login</a>
+            @endif
+        </div>
+        @endguest
     </div>
 </nav>
+<script>
+    const navbarToggle = document.getElementById("navbarToggle");
+
+    navbarToggle.addEventListener("click", () => {
+        navbarMenu.classList.toggle("hidden");
+    });
+</script>

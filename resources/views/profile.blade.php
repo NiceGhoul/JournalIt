@@ -1,4 +1,7 @@
 @extends('components.layout')
+
+@section('title', 'Profile')
+
 @section('content')
     <!-- Success Alert -->
     @if (session()->has('success'))

@@ -1,0 +1,38 @@
+.navbar-custom {
+  background-color: #0674b4;
+  color: white;
+}
+
+.navbar-custom .nav-link {
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-custom .nav-link:hover {
+  color: #f0f0f0;
+}
+
+.profile-box {
+  background-color: #57c1ff;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: black;
+}
+
+.profile-img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: white;
+}
+
+.profile-img img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

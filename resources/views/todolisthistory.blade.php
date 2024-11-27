@@ -1,4 +1,7 @@
 @extends('components.layout')
+
+@section('title', 'To Do List History')
+
 @section('content')
     <!-- Success Alert -->
     @if (session()->has('success'))

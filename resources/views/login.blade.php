@@ -1,5 +1,7 @@
 @extends('components.layout')
 
+@section('title', 'Login')
+
 @section('content')
 
 @section('css')

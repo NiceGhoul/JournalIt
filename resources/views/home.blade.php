@@ -1,5 +1,7 @@
 @extends('components.layout')
 
+@section('title', 'Home')
+
 @section('content')
     
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
