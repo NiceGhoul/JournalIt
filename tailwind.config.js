@@ -13,6 +13,11 @@ export default {
       fontFamily: {
         sans: ["Figtree", ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        customDark: "#2d2d2d",
+        theme: "#0674B4",
+        themeLight: "#57C1FF",
+      },
     },
   },
   plugins: [],
