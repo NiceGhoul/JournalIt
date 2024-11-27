@@ -56,6 +56,10 @@ class UserController extends Controller
 
         $user = User::where('name', $input['name'])->first();
 
+        if(!$user){
+            return back()->withErrors('Name or password is Not Found!');
+        }
+
         if (Hash::check($input['password'], $user->password)) {
             Auth::login($user);
             $request->session()->regenerate();
