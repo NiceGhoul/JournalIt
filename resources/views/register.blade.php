@@ -20,16 +20,16 @@
                 <h1 class="d-flex justify-content-center mb-3">Register Your Account</h1>
                 {{-- input name --}}
                 <div class="form-floating mb-3">
-                    <input class="w-100" type="text" name="name" id="name" placeholder="John Doe" class="form-control" required>
-                    <label for="name">Name</label>
+                    <input class="w-100" type="text" name="name" id="name" placeholder="Name" class="form-control" required>
+                    <!-- <label for="name">Name</label> -->
 
                 </div>
 
                 {{-- input email --}}
                 <div class="form-floating mb-3">
                     <input class="w-100" type="email" name="email" id="email" class="form-control"
-                        placeholder="example@gmail.com" required>
-                    <label for="email">Email</label>
+                        placeholder="Email" required>
+                    <!-- <label for="email">Email</label> -->
                 </div>
 
                 {{-- column for age and gender --}}
@@ -60,13 +60,13 @@
 
                 {{-- input password --}}
                 <div class="form-floating mb-3">
-                    <input class="w-100" type="password" name="password" id="password" class="form-control" required>
-                    <label for="password">Password</label>
+                    <input class="w-100" type="password" placeholder="Password" name="password" id="password" class="form-control" required>
+                    <!-- <label for="password">Password</label> -->
                 </div>
                 {{-- conf_password --}}
                 <div class="form-floating mb-3">
-                    <input class="w-100" type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
-                    <label for="password_confirmation">Confirm Password</label>
+                    <input class="w-100" type="password" placeholder="Confirm Password" name="password_confirmation" id="password_confirmation" class="form-control" required>
+                    <!-- <label for="password_confirmation">Confirm Password</label> -->
                 </div>
                 
                 {{-- button --}}
