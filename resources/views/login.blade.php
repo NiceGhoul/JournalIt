@@ -1,6 +1,9 @@
 @extends('components.layout')
 
 @section('content')
+
+@section('css')
+
 <style>
     .customFont {
       font-family: 'Raleway', sans-serif;
@@ -8,6 +11,7 @@
       color: #555;
     }
 </style>
+@endsection
 <div class="d-flex justify-content-center align-items-center" style="height: 75vh;">
     <div class="col-lg-3 border border-black p-5 rounded-2">
             
@@ -27,9 +31,8 @@
             <h1 class="d-flex justify-content-center mb-3 fs-4">Account Login</h1>
             {{-- input name --}}
             <div class="form-floating mb-3">
-                <input class="w-100" type="text" name="name" id="name" placeholder="Name" class="form-control" required>
-                <!-- <label for="name">Name</label> -->
-
+                <input class="w-100" type="email" name="email" id="email" placeholder="Email" class="form-control" required>
+                <!-- <label for="email">Email</label> -->
             </div>
 
             {{-- input password --}}

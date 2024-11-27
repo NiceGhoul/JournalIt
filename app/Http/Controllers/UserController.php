@@ -50,22 +50,22 @@ class UserController extends Controller
     {
 
         $input = $request->validate([
-            'name' => 'required',
-            'password' =>  'required'
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
-
-        $user = User::where('name', $input['name'])->first();
-
-        if(!$user){
-            return back()->withErrors('Name or password is Not Found!');
+    
+        $user = User::where('email', $input['email'])->first();
+    
+        if (!$user) {
+            return back()->withErrors('Email is not valid!');
         }
-
+    
         if (Hash::check($input['password'], $user->password)) {
             Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended('/');
         } else {
-            return back()->withErrors('name or password is incorrect!');
+            return back()->withErrors('Email or password is incorrect!');
         }
     }
 
