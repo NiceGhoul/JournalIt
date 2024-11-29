@@ -9,22 +9,25 @@ class Meditation extends Model
 {
     /** @use HasFactory<\Database\Factories\MeditationFactory> */
     use HasFactory;
-    protected $fillable = [
-        'user_id',
-        'name',
-        'date_added',
-        'status',
-        'logo',
-        'analytic_id'
-    ];
-    // Many-to-One: Meditation belongs to a User
+
+    // protected $fillable = [
+    //     'user_id',
+    //     'name',
+    //     'date_added',
+    //     'status',
+    //     'logo',
+    //     'analytic_id'
+    // ];
+
+    protected $guarded = ['id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Optional One-to-One: Meditation belongs to an Analytics
-    public function analytics()
+
+    public function analytic()
     {
         return $this->belongsTo(Analytic::class);
     }

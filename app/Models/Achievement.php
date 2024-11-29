@@ -10,12 +10,14 @@ class Achievement extends Model
     /** @use HasFactory<\Database\Factories\AchievementFactory> */
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'description',
-        'logo',
-    ];
-    // Many-to-Many: Achievement belongs to many Users
+    // protected $fillable = [
+    //     'title',
+    //     'description',
+    //     'logo',
+    // ];
+
+    protected $guarded = ['id'];
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'users_achievements')

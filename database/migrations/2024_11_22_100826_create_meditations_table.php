@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('name');
             $table->date('date_added');
             $table->string('status');
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->foreignId('analytic_id')
                 ->constrained('analytics')
-                ->onDelete('cascade');
+                ->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

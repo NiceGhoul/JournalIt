@@ -25,7 +25,7 @@
                     <a href="{{ route('ToDoList') }}" class="nav-link">To-do List</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link">Analytics</a>
+                    <a href="{{ route('analytics') }}" class="nav-link">Analytics</a>
                 </li>
                 <li>
                     <a href="#" class="nav-link">Achievements</a>
