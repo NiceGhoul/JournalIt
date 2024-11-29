@@ -2,7 +2,7 @@
 <nav class="navbar-custom w-full">
     <div class="container mx-auto flex flex-wrap items-center justify-between py-2">
         <a href="{{ route('homePage') }}" class="text-white text-lg font-bold">
-            Jurnalit Logo
+            <img src="{{ asset('image/logo.png') }}" alt="logo" style="width:70px">
         </a>
 
 
