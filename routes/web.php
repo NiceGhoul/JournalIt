@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MeditationController;
 use App\Http\Controllers\ToDoListController;
+use App\Http\Controllers\AchievementController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -28,4 +29,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Meditation Page
     Route::get('/meditation', [MeditationController::class, 'showMeditationPage'])->name('meditationPage');
+
+    // Achievement Page
+    Route::get('/achievement', [AchievementController::class, 'showAchievementPage'])->name('achievementPage');
 });

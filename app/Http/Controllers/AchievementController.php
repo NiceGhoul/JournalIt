@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class AchievementController extends Controller
 {
-    //
+    public function showAchievementPage(){
+        return view('achievement');
+    }
 }

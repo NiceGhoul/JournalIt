@@ -28,7 +28,7 @@
                     <a href="#" class="nav-link">Analytics</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link">Achievements</a>
+                    <a href="{{route('achievementPage')}}" class="nav-link">Achievements</a>
                 </li>
             </ul>
         </div>
