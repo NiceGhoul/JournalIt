@@ -2,7 +2,7 @@
 <nav class="navbar-custom w-full">
     <div class="container mx-auto flex flex-wrap items-center justify-between py-2">
         <a href="{{ route('homePage') }}" class="text-white text-lg font-bold">
-            Jurnalit Logo
+            <img src="{{ asset('image/logo.png') }}" alt="logo" style="width:70px">
         </a>
 
 
@@ -25,7 +25,7 @@
                     <a href="{{ route('ToDoList') }}" class="nav-link">To-do List</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link">Analytics</a>
+                    <a href="{{ route('analytics') }}" class="nav-link">Analytics</a>
                 </li>
                 <li>
                     <a href="{{route('achievementPage')}}" class="nav-link">Achievements</a>

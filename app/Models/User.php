@@ -16,14 +16,17 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'age',
-        'profile_picture',
-        'gender'
-    ];
+
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    //     'age',
+    //     'profile_picture',
+    //     'gender'
+    // ];
+
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,25 +51,21 @@ class User extends Authenticatable
         ];
     }
 
-    // One-to-Many: User has many Meditations
     public function meditations()
     {
         return $this->hasMany(Meditation::class);
     }
 
-    // One-to-Many: User has many ToDoLists
     public function toDoLists()
     {
         return $this->hasMany(ToDoList::class);
     }
 
-    // One-to-Many: User has many Analytics
     public function analytics()
     {
         return $this->hasMany(Analytic::class);
     }
 
-    // Many-to-Many: User belongs to many Achievements
     public function achievements()
     {
         return $this->belongsToMany(Achievement::class, 'users_achievements')

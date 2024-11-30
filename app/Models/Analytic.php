@@ -7,26 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Analytic extends Model
 {
-    /** @use HasFactory<\Database\Factories\AnalyticFactory> */
+
     use HasFactory;
-    protected $fillable = [
-        'user_id'
-    ];
-    // Many-to-One: Analytics belongs to a User
+   
+    // protected $fillable = [
+    //     'user_id',
+    //     'type',
+    // ];
+   
+    protected $guarded = ['id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // One-to-One: Analytics has one Meditation
-    public function meditation()
+    public function meditations()
     {
-        return $this->hasOne(Meditation::class);
+        return $this->hasMany(Meditation::class);
     }
 
-    // One-to-One: Analytics has one ToDoList
-    public function toDoList()
+    public function toDoLists()
     {
-        return $this->hasOne(ToDoList::class);
+        return $this->hasMany(ToDoList::class);
     }
 }
