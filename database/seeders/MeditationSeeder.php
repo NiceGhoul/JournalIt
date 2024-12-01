@@ -31,7 +31,7 @@ class MeditationSeeder extends Seeder
                     'date_added' => $dateAdded->toDateString(),
                     'done_date' => $doneDate->toDateString(),
                     'status' => $faker->randomElement(['completed', 'ongoing']),
-                    'logo' => $faker->imageUrl(),
+                    'logo' => '/assets/meditateLogo.jpg',
                 ]);
             }
         });

@@ -30,7 +30,7 @@ class HomeController extends Controller
         $monthToDos = ToDoList::where('user_id', $user->id)
             ->whereBetween('to_do_date', [$startOfMonth, $endOfMonth])
             ->where('status', '!=', 'completed')
-            ->get();
+            ->limit(5)->get();
 
         return view('home', compact('todayToDos', 'weekToDos', 'monthToDos'));
     }

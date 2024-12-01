@@ -32,7 +32,7 @@ class ToDoListSeeder extends Seeder
                     'to_do_date' => $doneDate->toDateString(), 
                     'done_date' => $doneDate->toDateString(),
                     'status' => $faker->randomElement(['completed', 'ongoing']),
-                    'logo' => $faker->imageUrl(),
+                    'logo' => '/assets/todoLogo.jpg',
                     'target' => 5,
                     'progress' => $faker->numberBetween(0, 4),
                 ]);
