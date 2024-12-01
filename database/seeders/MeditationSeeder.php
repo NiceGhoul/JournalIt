@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use Carbon\Carbon;
 
 class MeditationSeeder extends Seeder
 {
@@ -18,23 +19,19 @@ class MeditationSeeder extends Seeder
     {
         $faker = Faker::create();
 
-
         User::all()->each(function($user) use ($faker) {
             for ($i = 0; $i < 10; $i++) {
 
-                $analytic = Analytic::create([
-                    'user_id' => $user->id,
-                    'type' => 'meditation',  
-                ]);
-
+                $doneDate = Carbon::now()->addDays(rand(0, 14));
+                $dateAdded = $doneDate->copy()->subDay(); 
 
                 Meditation::create([
                     'user_id' => $user->id,
                     'name' => $faker->sentence,
-                    'date_added' => $faker->date,
+                    'date_added' => $dateAdded->toDateString(),
+                    'done_date' => $doneDate->toDateString(),
                     'status' => $faker->randomElement(['completed', 'ongoing']),
-                    'logo' => $faker->imageUrl(),
-                    'analytic_id' => $analytic->id,  
+                    'logo' => '/assets/meditateLogo.jpg',
                 ]);
             }
         });

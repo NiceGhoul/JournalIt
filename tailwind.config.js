@@ -17,6 +17,12 @@ export default {
         customDark: "#2d2d2d",
         theme: "#0674B4",
         themeLight: "#57C1FF",
+        analytic: "#82B9D9",
+        cardHome: "#EDB1B1",
+        cardHomeText: "#6B5050",
+      },
+      boxShadow: {
+        custom: "10px 10px 15px rgba(0, 0, 0, 0.8)",
       },
     },
   },

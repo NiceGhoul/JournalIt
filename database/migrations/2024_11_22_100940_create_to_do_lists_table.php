@@ -19,14 +19,11 @@ return new class extends Migration
             $table->string('name');
             $table->date('date_added');
             $table->date('to_do_date');
+            $table->date('done_date')->nullable();
             $table->string('status');
             $table->string('logo')->nullable();
             $table->integer('target')->unsigned();
             $table->integer('progress')->unsigned();
-            $table->foreignId('analytic_id')
-                ->nullable()
-                ->constrained('analytics')
-                ->onDelete('cascade');
             $table->timestamps();
         });
     }

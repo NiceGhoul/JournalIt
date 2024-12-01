@@ -15,22 +15,22 @@ class HomeController extends Controller
         $today = Carbon::today();
         $todayToDos = ToDoList::where('user_id', $user->id)
             ->whereDate('to_do_date', $today)
-            ->where('status', '!=', 'Finished')
+            ->where('status', '!=', 'completed')
             ->get();
 
         $startOfWeek = Carbon::now()->startOfWeek(); 
         $endOfWeek = Carbon::now()->endOfWeek(); 
         $weekToDos = ToDoList::where('user_id', $user->id)
             ->whereBetween('to_do_date', [$startOfWeek, $endOfWeek])
-            ->where('status', '!=', 'Finished')
+            ->where('status', '!=', 'completed')
             ->get();
 
         $startOfMonth = Carbon::now()->startOfMonth();
         $endOfMonth = Carbon::now()->endOfMonth();
         $monthToDos = ToDoList::where('user_id', $user->id)
             ->whereBetween('to_do_date', [$startOfMonth, $endOfMonth])
-            ->where('status', '!=', 'Finished')
-            ->get();
+            ->where('status', '!=', 'completed')
+            ->limit(5)->get();
 
         return view('home', compact('todayToDos', 'weekToDos', 'monthToDos'));
     }

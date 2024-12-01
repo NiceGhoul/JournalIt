@@ -6,7 +6,7 @@
 <div class="min-h-screen flex items-center justify-center bg-customDark sm:py-10 md:py-15 lg:py-20">
     <div class="w-10/12 max-w-6xl bg-customDark p-6 rounded-lg shadow-lg flex flex-col md:flex-row">
         <div class="w-full md:w-1/2 flex justify-center items-center border-b-2 md:border-b-0 md:border-r-2 mb-6 md:mb-0">
-            <img src="{{ asset('assets/tempLogo.jpg') }}" alt="Logo" class="max-w-[80%] h-auto">
+            <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="max-w-[80%] h-auto">
         </div>
 
         <div class="w-full md:w-1/2 px-4 sm:px-8">

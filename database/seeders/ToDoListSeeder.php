@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use Carbon\Carbon;
 
 class ToDoListSeeder extends Seeder
 {
@@ -19,23 +20,21 @@ class ToDoListSeeder extends Seeder
         $faker = Faker::create();
 
         User::all()->each(function($user) use ($faker) {
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 30; $i++) {
 
-                $analytic = Analytic::create([
-                    'user_id' => $user->id,
-                    'type' => 'to_do_list', 
-                ]);
+                $doneDate = Carbon::now()->addDays(rand(0, 21));
+                $dateAdded = $doneDate->copy()->subDay(); 
 
                 ToDoList::create([
                     'user_id' => $user->id,
                     'name' => $faker->sentence,
-                    'date_added' => $faker->date,
-                    'to_do_date' => $faker->date,
+                    'date_added' => $dateAdded->toDateString(),
+                    'to_do_date' => $doneDate->toDateString(), 
+                    'done_date' => $doneDate->toDateString(),
                     'status' => $faker->randomElement(['completed', 'ongoing']),
-                    'logo' => $faker->imageUrl(),
-                    'target' => $faker->numberBetween(5, 20),
+                    'logo' => '/assets/todoLogo.jpg',
+                    'target' => 5,
                     'progress' => $faker->numberBetween(0, 4),
-                    'analytic_id' => $analytic->id, 
                 ]);
             }
         });

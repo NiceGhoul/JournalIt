@@ -1,7 +1,7 @@
 
 <nav class="navbar-custom w-full">
     <div class="container mx-auto flex flex-wrap items-center justify-between py-2">
-        <a href="{{ route('homePage') }}" class="text-white text-lg font-bold">
+        <a href="{{ route('homePage') }}" class="text-white text-lg font-bold transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
             <img src="{{ asset('image/logo.png') }}" alt="logo" style="width:70px">
         </a>
 
@@ -14,21 +14,21 @@
 
         @auth
         <div id="navbarMenu" class="hidden w-full lg:flex lg:w-auto lg:items-center p-2">
-            <ul class="flex flex-col lg:flex-row lg:space-x-6">
+            <ul class="flex flex-col text-lg lg:text-xl lg:flex-row lg:space-x-20">
                 <li>
-                    <a href="{{ route('homePage') }}" class="nav-link">Home</a>
+                    <a href="{{ route('homePage') }}" class="nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">Home</a>
                 </li>
                 <li>
-                    <a href="{{ route('meditationPage') }}" class="nav-link">Meditate</a>
+                    <a href="{{ route('meditationPage') }}" class="nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">Meditate</a>
                 </li>
                 <li>
-                    <a href="{{ route('ToDoList') }}" class="nav-link">To-do List</a>
+                    <a href="{{ route('ToDoList') }}" class="nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">To-do List</a>
                 </li>
                 <li>
-                    <a href="{{ route('analytics') }}" class="nav-link">Analytics</a>
+                    <a href="{{ route('analytics') }}" class="nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">Analytics</a>
                 </li>
                 <li>
-                    <a href="{{route('achievementPage')}}" class="nav-link">Achievements</a>
+                    <a href="{{route('achievementPage')}}" class="nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">Achievements</a>
                 </li>
             </ul>
         </div>

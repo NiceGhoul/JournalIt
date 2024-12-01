@@ -27,9 +27,4 @@ class Meditation extends Model
     }
 
 
-    public function analytic()
-    {
-        return $this->belongsTo(Analytic::class);
-    }
-
 }
