@@ -35,7 +35,7 @@ class ToDoListController extends Controller
     {
         $user = Auth::user();
         $toDoLists = ToDoList::where('user_id', $user->id)
-            ->where('status', '!=', 'Finished')
+            ->where('status', '!=', 'completed')
             ->get();
 
         return view('todolist', compact('toDoLists'));
@@ -44,7 +44,7 @@ class ToDoListController extends Controller
     {
         $user = Auth::user();
         $toDoLists = ToDoList::where('user_id', $user->id)
-            ->where('status', 'Finished')
+            ->where('status', 'completed')
             ->get();
 
         return view('todolisthistory', compact('toDoLists'));
@@ -52,12 +52,12 @@ class ToDoListController extends Controller
     public function updateProgress(Request $request, $id)
     {
         $todo = ToDoList::findOrFail($id);
-        // Update progress
+
         $todo->progress += $request->input('progress');
 
-        // Check if progress has reached the target
         if ($todo->progress >= $todo->target) {
-            $todo->status = 'Finished';
+            $todo->status = 'completed';
+            $todo->done_date = now();
         }
 
         $todo->save();

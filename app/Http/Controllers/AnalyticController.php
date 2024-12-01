@@ -31,14 +31,12 @@ class AnalyticController extends Controller
         $completed = $data->where('status', 'completed')->count();
         $ongoing = $data->where('status', 'ongoing')->count();
 
-        $history = $data->groupBy(function ($item) {
-            return $item->date_added; 
-        })->map(function ($group) {
+        $history = $data->groupBy('done_date')->map(function ($group) {
             return [
                 'completed' => $group->where('status', 'completed')->count(),
                 'ongoing' => $group->where('status', 'ongoing')->count(),
             ];
-        });
+        })->sortKeys(); 
 
         return response()->json([
             'total' => $total,

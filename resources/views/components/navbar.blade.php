@@ -14,7 +14,7 @@
 
         @auth
         <div id="navbarMenu" class="hidden w-full lg:flex lg:w-auto lg:items-center p-2">
-            <ul class="flex flex-col lg:flex-row lg:space-x-6">
+            <ul class="flex flex-col text-lg lg:text-xl lg:flex-row lg:space-x-20">
                 <li>
                     <a href="{{ route('homePage') }}" class="nav-link">Home</a>
                 </li>

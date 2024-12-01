@@ -17,6 +17,7 @@ export default {
         customDark: "#2d2d2d",
         theme: "#0674B4",
         themeLight: "#57C1FF",
+        analytic: "#82B9D9",
       },
     },
   },

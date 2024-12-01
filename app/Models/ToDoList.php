@@ -28,10 +28,5 @@ class ToDoList extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Optional One-to-One: ToDoList belongs to an Analytics
-    public function analytic()
-    {
-        return $this->belongsTo(Analytic::class);
-    }
 
 }

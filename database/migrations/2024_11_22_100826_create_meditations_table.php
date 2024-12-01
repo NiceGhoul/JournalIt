@@ -18,11 +18,9 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->date('date_added');
+            $table->date('done_date')->nullable();
             $table->string('status');
             $table->string('logo')->nullable();
-            $table->foreignId('analytic_id')
-                ->constrained('analytics')
-                ->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

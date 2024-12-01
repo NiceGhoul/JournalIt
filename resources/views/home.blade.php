@@ -4,22 +4,23 @@
 
 @section('content')
     
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ asset('image/earth.jpg') }}" class="d-block w-100" alt="...">
+                <img src="{{ asset('image/earth.jpg') }}" class="d-block w-100 h-[50%]" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('image/international.jpg') }}" class="d-block w-100" alt="...">
+                <img src="{{ asset('image/international.jpg') }}" class="d-block w-100 h-[50%]" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('image/nutrition.jpg') }}" class="d-block w-100" alt="...">
+                <img src="{{ asset('image/nutrition.jpg') }}" class="d-block w-100 h-[50%]" alt="...">
             </div>
         </div>
     </div>
 
+<div class="bg-customDark">
 
-    <div class="container mt-5">
+    <div>
         <h2>Today's To-Do List</h2>
         <div class="d-flex flex-column gap-3">
             @forelse ($todayToDos as $todo)
@@ -71,4 +72,5 @@
             @endforelse
         </div>
     </div>
+</div>
 @endsection
