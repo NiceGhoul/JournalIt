@@ -15,10 +15,11 @@ return new class extends Migration
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
-            $table->foreignId('achievements_id')
+            $table->foreignId('achievement_id')
                 ->constrained('achievements')
                 ->onDelete('cascade');
-            $table->string('status');
+            $table->string('status')->default('Locked');
+            $table->timestamps();
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ToDoList;
+use App\Models\Achievement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,6 +39,7 @@ class ToDoListController extends Controller
             ->where('status', '!=', 'Finished')
             ->get();
 
+            
         return view('todolist', compact('toDoLists'));
     }
     public function showHistory()
@@ -51,16 +53,43 @@ class ToDoListController extends Controller
     }
     public function updateProgress(Request $request, $id)
     {
+        $user = Auth::user();
         $todo = ToDoList::findOrFail($id);
-        // Update progress
+        // Update progress  
         $todo->progress += $request->input('progress');
+        
 
         // Check if progress has reached the target
         if ($todo->progress >= $todo->target) {
             $todo->status = 'Finished';
-        }
+            $todo->save();
+        
+            $completedTodo = $user->toDoLists()->where('status', 'Finished')->count();
+            if($completedTodo == 1){
+                $firstTodoAchievement = Achievement::where('title', 'First Step')->first();
 
+                if($firstTodoAchievement){
+                    $user->achievements()->attach($firstTodoAchievement->id, ['status' => 'Unlocked']);
+                }
+            }else if($completedTodo == 5){
+                $fifthTodoAchievement = Achievement::where('title', '5 Done, More to Go')->first();
+
+                if($fifthTodoAchievement){
+                    $user->achievements()->attach($fifthTodoAchievement->id, ['status' => 'Unlocked']);
+                }
+            }else if($completedTodo >= 10){
+                $tenthTodoAchievement = Achievement::where('title', '10 and Still Counting')->first();
+                
+                if($tenthTodoAchievement){
+                    $user->achievements()->attach($tenthTodoAchievement->id, ['status' => 'Unlocked']);
+                }
+            }
+            return redirect()->back()->with('success', 'Progress updated successfully!');
+    
+        }
         $todo->save();
+
+        
 
         return redirect()->back()->with('success', 'Progress updated successfully!');
     }

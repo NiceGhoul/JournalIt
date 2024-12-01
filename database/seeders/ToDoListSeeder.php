@@ -34,7 +34,7 @@ class ToDoListSeeder extends Seeder
                     'status' => $faker->randomElement(['completed', 'ongoing']),
                     'logo' => $faker->imageUrl(),
                     'target' => $faker->numberBetween(5, 20),
-                    'progress' => $faker->numberBetween(0, 20),
+                    'progress' => $faker->numberBetween(0, 4),
                     'analytic_id' => $analytic->id, 
                 ]);
             }

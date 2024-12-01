@@ -20,7 +20,7 @@ class Achievement extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'users_achievements')
+        return $this->belongsToMany(User::class, 'user_achievements')
                     ->withPivot('status')
                     ->withTimestamps();
     }

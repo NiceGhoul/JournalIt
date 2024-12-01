@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             ToDoListSeeder::class,
-            MeditationSeeder::class
+            MeditationSeeder::class,
+            AchievementSeeder::class
         ]);
     }
 }
