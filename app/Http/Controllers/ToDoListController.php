@@ -37,9 +37,10 @@ class ToDoListController extends Controller
         $user = Auth::user();
         $toDoLists = ToDoList::where('user_id', $user->id)
             ->where('status', '!=', 'Finished')
-            ->get();
+            ->orderBy('to_do_date', 'asc')
+            ->paginate(3);
 
-            
+        // Pass the paginated results to the view
         return view('todolist', compact('toDoLists'));
     }
     public function showHistory()
@@ -47,7 +48,7 @@ class ToDoListController extends Controller
         $user = Auth::user();
         $toDoLists = ToDoList::where('user_id', $user->id)
             ->where('status', 'Finished')
-            ->get();
+            ->paginate(3); // Paginate with 3 items per page
 
         return view('todolisthistory', compact('toDoLists'));
     }
@@ -57,39 +58,38 @@ class ToDoListController extends Controller
         $todo = ToDoList::findOrFail($id);
         // Update progress  
         $todo->progress += $request->input('progress');
-        
+
 
         // Check if progress has reached the target
         if ($todo->progress >= $todo->target) {
             $todo->status = 'Finished';
             $todo->save();
-        
+
             $completedTodo = $user->toDoLists()->where('status', 'Finished')->count();
-            if($completedTodo == 1){
+            if ($completedTodo == 1) {
                 $firstTodoAchievement = Achievement::where('title', 'First Step')->first();
 
-                if($firstTodoAchievement){
+                if ($firstTodoAchievement) {
                     $user->achievements()->attach($firstTodoAchievement->id, ['status' => 'Unlocked']);
                 }
-            }else if($completedTodo == 5){
+            } else if ($completedTodo == 5) {
                 $fifthTodoAchievement = Achievement::where('title', '5 Done, More to Go')->first();
 
-                if($fifthTodoAchievement){
+                if ($fifthTodoAchievement) {
                     $user->achievements()->attach($fifthTodoAchievement->id, ['status' => 'Unlocked']);
                 }
-            }else if($completedTodo >= 10){
+            } else if ($completedTodo >= 10) {
                 $tenthTodoAchievement = Achievement::where('title', '10 and Still Counting')->first();
-                
-                if($tenthTodoAchievement){
+
+                if ($tenthTodoAchievement) {
                     $user->achievements()->attach($tenthTodoAchievement->id, ['status' => 'Unlocked']);
                 }
             }
             return redirect()->back()->with('success', 'Progress updated successfully!');
-    
         }
         $todo->save();
 
-        
+
 
         return redirect()->back()->with('success', 'Progress updated successfully!');
     }
