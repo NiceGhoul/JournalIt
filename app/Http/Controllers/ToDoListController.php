@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ToDoList;
-use App\Models\Achievement;
+use App\Models\User;
+use App\Http\Controllers\UserAchievementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,34 +56,20 @@ class ToDoListController extends Controller
     {
         $user = Auth::user();
         $todo = ToDoList::findOrFail($id);
-        $todo->progress += $request->input('progress');
 
+        // Update progress tugas
+        $todo->progress += $request->input('progress');
 
         if ($todo->progress >= $todo->target) {
             $todo->status = 'completed';
             $todo->done_date = now();
             $todo->save();
 
-            $completedTodo = $user->toDoLists()->where('status', 'completed')->count();
-            if ($completedTodo == 1) {
-                $firstTodoAchievement = Achievement::where('title', 'First Step')->first();
-                if ($firstTodoAchievement) {
-                    $user->achievements()->attach($firstTodoAchievement->id, ['status' => 'Unlocked']);
-                }
-            } else if ($completedTodo == 5) {
-                $fifthTodoAchievement = Achievement::where('title', '5 Done, More to Go')->first();
-
-                if ($fifthTodoAchievement) {
-                    $user->achievements()->attach($fifthTodoAchievement->id, ['status' => 'Unlocked']);
-                }
-            } else if ($completedTodo >= 10) {
-                $tenthTodoAchievement = Achievement::where('title', '10 and Still Counting')->first();
-
-                if ($tenthTodoAchievement) {
-                    $user->achievements()->attach($tenthTodoAchievement->id, ['status' => 'Unlocked']);
-                }
-            }
+            // Panggil UserAchievementController untuk memberikan achievement
+            $achievementController = new UserAchievementController();
+            $achievementController->giveAchievements($user);
         }
+
         $todo->save();
 
         return redirect()->back()->with('success', 'Progress updated successfully!');

@@ -9,49 +9,60 @@
     <div class="flex justify-center mb-6">
         <button 
             id="unlocked-tab" 
-            class="px-6 py-2 mx-2 text-lg font-medium text-white bg-blue-600 rounded-lg focus:outline-none"
+            class="px-6 py-2 mx-2 text-lg font-medium text-white  bg-themeLight hover:bg-theme rounded-lg focus:outline-none"
             onclick="toggleTab('unlocked')">
             Unlocked Achievements
         </button>
         <button 
             id="locked-tab" 
-            class="px-6 py-2 mx-2 text-lg font-medium text-white bg-gray-600 rounded-lg focus:outline-none"
+            class="px-6 py-2 mx-2 text-lg font-medium text-white  bg-themeLight hover:bg-theme rounded-lg focus:outline-none"
             onclick="toggleTab('locked')">
             All Achievements
         </button>
     </div>
 
     <!-- Unlocked Achievements Grid -->
-    <div id="unlocked-achievements" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 hidden">
+    <div id="unlocked-achievements" class="grid grid-cols-1 sm:grid-cols-2 gap-6 hidden">
         @if($unlockedAchievements->isEmpty()) 
             <div class="col-span-full text-center text-gray-500">
                 <p class="text-8xl">WOW SO EMPTY</p>
             </div>
         @else
             @foreach ($unlockedAchievements as $achievement)
-                <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between">
+                <div class=" bg-themeLight hover:bg-theme shadow-lg rounded-lg p-4 flex flex-col justify-between h-full">
                     @if ($achievement->logo)
-                        <img src="{{ asset($achievement->logo) }}" alt="Achievement Logo" class="w-24 h-24 object-cover mb-4">
+                        <img src="{{ asset($achievement->logo) }}" alt="Achievement Logo" class="w-24 h-24 object-cover mb-4 mx-auto">
                     @endif
-                    <h2 class="text-xl font-semibold text-gray-800">{{ $achievement->title }}</h2>
-                    <p class="text-gray-600 mt-2">{{ $achievement->description }}</p>
-                    <p>{{$achievement->updated_at}}</p>
+                    <h2 class="text-xl font-semibold text-gray-800 text-center">{{ $achievement->title }}</h2>
+                    <p class="text-gray-600 mt-2 text-center">{{ $achievement->description }}</p>
+                    <p class="text-gray-500 text-xs text-center mt-2">{{ $achievement->updated_at }}</p>
                 </div>
             @endforeach
         @endif
     </div>
 
     <!-- Locked Achievements Grid -->
-    <div id="locked-achievements" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 hidden">
-            @foreach ($allAchievements as $achievement)
-                <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between">
-                    @if ($achievement->logo)
-                        <img src="{{ asset($achievement->logo) }}" alt="Achievement Logo" class="w-24 h-24 object-cover mb-4">
-                    @endif
-                    <h2 class="text-xl font-semibold text-gray-800">{{ $achievement->title }}</h2>
-                    <p class="text-gray-600 mt-2">{{ $achievement->description }}</p>
-                </div>
-            @endforeach
+    <div id="locked-achievements" class="grid grid-cols-1 sm:grid-cols-2 gap-6 hidden">
+        @foreach ($allAchievements as $achievement)
+            <div class="relative bg-themeLight hover:bg-theme shadow-lg rounded-lg p-4 flex flex-col justify-between h-full">
+                <!-- Cek apakah achievement sudah diunlock oleh user -->
+                @if ($achievement->users->where('id', Auth::id())->first() === null || 
+                    $achievement->users->where('id', Auth::id())->first()->pivot->status !== 'Unlocked')
+                    <!-- Jika achievement belum diunlock oleh user, tampilkan overlay -->
+                    <div class="absolute inset-0 bg-gray-700 opacity-50 rounded-lg"></div>
+                    <div class="absolute inset-0 flex justify-center items-center">
+                        <p class="text-white text-lg font-semibold">Locked</p>
+                    </div>
+                @endif
+
+                @if ($achievement->logo)
+                    <img src="{{ asset($achievement->logo) }}" alt="Achievement Logo" class="w-24 h-24 object-cover mb-4 mx-auto">
+                @endif
+
+                <h2 class="text-xl font-semibold text-gray-800 text-center">{{ $achievement->title }}</h2>
+                <p class="text-gray-600 mt-2 text-center">{{ $achievement->description }}</p>
+            </div>
+        @endforeach
     </div>
 </div>
 
@@ -65,16 +76,16 @@
         // Show the selected tab
         if (tab === 'unlocked') {
             document.getElementById('unlocked-achievements').classList.remove('hidden');
-            document.getElementById('unlocked-tab').classList.add('bg-blue-600');
+            document.getElementById('unlocked-tab').classList.add('bg-themeLight');
             document.getElementById('unlocked-tab').classList.remove('bg-gray-600');
             document.getElementById('locked-tab').classList.add('bg-gray-600');
-            document.getElementById('locked-tab').classList.remove('bg-blue-600');
+            document.getElementById('locked-tab').classList.remove('bg-themeLight');
         } else if (tab === 'locked') {
             document.getElementById('locked-achievements').classList.remove('hidden');
-            document.getElementById('locked-tab').classList.add('bg-blue-600');
+            document.getElementById('locked-tab').classList.add('bg-themeLight');
             document.getElementById('locked-tab').classList.remove('bg-gray-600');
             document.getElementById('unlocked-tab').classList.add('bg-gray-600');
-            document.getElementById('unlocked-tab').classList.remove('bg-blue-600');
+            document.getElementById('unlocked-tab').classList.remove('bg-themeLight');
         }
     }
 

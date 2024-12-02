@@ -18,21 +18,21 @@ class AchievementSeeder extends Seeder
             [
                 'title' => 'First Step',
                 'description' => 'Finish Your First To-Do List',
-                'logo' => '/assets/profilePic/nico.jpg',
+                'logo' => '/assets/achievementPic/numberOne.jpg',
                 'created_at' => $now,
                 'updated_at' => $now
 
             ], [
                 'title' => '5 Done, More to Go',
                 'description' => 'Finish 5 Task',
-                'logo' => '/assets/profilePic/nico.jpg',
+                'logo' => '/assets/achievementPic/numberFive.jpg',
                 'created_at' => $now,
                 'updated_at' => $now
 
             ], [
                 'title' => '10 and Still Counting',
                 'description' => 'Finish 10 Task, Dont stop now',
-                'logo' => '/assets/profilePic/nico.jpg',
+                'logo' => '/assets/achievementPic/numberTen.jpg',
                 'created_at' => $now,
                 'updated_at' => $now
 

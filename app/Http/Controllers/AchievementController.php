@@ -16,4 +16,5 @@ class AchievementController extends Controller
         // dd($unlockedAchievements, $lockedAchievements);
         return view('achievement', compact('allAchievements', 'unlockedAchievements'));
     }
+
 }
