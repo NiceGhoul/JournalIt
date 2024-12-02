@@ -1,4 +1,5 @@
 @extends('components.layout')
+@section('title', 'Achievement')
 
 @section('content')
 
@@ -35,7 +36,10 @@
                     @endif
                     <h2 class="text-xl font-semibold text-gray-800 text-center">{{ $achievement->title }}</h2>
                     <p class="text-gray-600 mt-2 text-center">{{ $achievement->description }}</p>
-                    <p class="text-gray-500 text-xs text-center mt-2">{{ $achievement->updated_at }}</p>
+                    <p class="text-gray-500 text-xs text-center mt-2">
+                        Unlocked at: {{ $achievement->updated_at ? \Carbon\Carbon::parse($achievement->updated_at)->format('d-m-Y') : 'N/A' }}
+                    </p>
+                    
                 </div>
             @endforeach
         @endif

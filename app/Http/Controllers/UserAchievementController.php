@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class UserAchievementController extends Controller
 {
 
-    public function giveAchievements(User $user)
+    public function giveToDoAchievements(User $user)
     {
         $completedTodo = $user->toDoLists()->where('status', 'completed')->count();
 
@@ -22,6 +22,13 @@ class UserAchievementController extends Controller
         }
         if ($completedTodo >= 10) {
             $this->unlockAchievement($user, '10 and Still Counting');
+        }
+    }
+        
+    public function giveProfilePicAchievements(User $user){
+        if ($user->profile_picture == 'image/DefaultProfile.jpg') {
+            // Berikan achievement "First Step in Profile"
+            $this->unlockAchievement($user, 'New Face');
         }
     }
 

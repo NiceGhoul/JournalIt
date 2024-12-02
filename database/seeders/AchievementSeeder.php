@@ -37,9 +37,9 @@ class AchievementSeeder extends Seeder
                 'updated_at' => $now
 
             ], [
-                'title' => 'Achievement 4',
-                'description' => 'Desc 4',
-                'logo' => '/assets/profilePic/nico.jpg',
+                'title' => 'New Face',
+                'description' => 'Update Your Profile Pic',
+                'logo' => '/assets/achievementPic/aiBerto.jpg',
                 'created_at' => $now,
                 'updated_at' => $now
 

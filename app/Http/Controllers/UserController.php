@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\UserAchievementController;
 
 class UserController extends Controller
 {
@@ -84,21 +85,24 @@ class UserController extends Controller
     }
 
     public function uploadProfilePicture(Request $request)
-    {
-        $request->validate([
-            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+{
+    $request->validate([
+        'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        $user = Auth::user();
+    $user = Auth::user();
 
-        // Store the uploaded image
-        $path = $request->file('profile_picture')->move(public_path('images'), $request->file('profile_picture')->getClientOriginalName());
+    $achievementController = new UserAchievementController();
+    $achievementController->giveProfilePicAchievements($user);
 
-        // Save the path relative to the public folder in the database
-        $user->update([
-            'profile_picture' => 'images/' . $request->file('profile_picture')->getClientOriginalName(),
-        ]);
+    // Store the uploaded image
+    $path = $request->file('profile_picture')->move(public_path('images'), $request->file('profile_picture')->getClientOriginalName());
 
-        return back()->with('success', 'Profile picture updated successfully!');
-    }
+    // Update the user's profile picture path in the database
+    $user->update([
+        'profile_picture' => 'images/' . $request->file('profile_picture')->getClientOriginalName(),
+    ]);
+
+    return back()->with('success', 'Profile picture updated successfully!');
+}
 }

@@ -67,7 +67,7 @@ class ToDoListController extends Controller
 
             // Panggil UserAchievementController untuk memberikan achievement
             $achievementController = new UserAchievementController();
-            $achievementController->giveAchievements($user);
+            $achievementController->giveToDoAchievements($user);
         }
 
         $todo->save();
