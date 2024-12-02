@@ -20,15 +20,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ProfilePage', [UserController::class, 'profile'])->name('ProfilePage');
     Route::post('/logout', [UserController::class, 'accountLogout'])->name('logout');
     Route::post('/upload-profile-picture', [UserController::class, 'uploadProfilePicture'])->name('uploadProfilePicture');
-    
+
     Route::get('/todolist', [ToDoListController::class, 'show'])->name('ToDoList');
     Route::get('/todolist/history', [ToDoListController::class, 'showHistory'])->name('ToDoListHistory');
     Route::post('/addtodolist', [ToDoListController::class, 'store'])->name('AddToDoList');
     Route::patch('/to-do-lists/{id}/update-progress', [ToDoListController::class, 'updateProgress'])->name('updateProgress');
 
+    // meditation page
     Route::get('/meditation', [MeditationController::class, 'showMeditationPage'])->name('meditationPage');
     Route::post('/addmeditation', [MeditationController::class, 'storeMeditate'])->name('AddMeditation');
-
+    Route::get('/meditation/counter/{id}', [MeditationController::class, 'showCounter'])->name('meditation.counter');
+    Route::post('/meditation/{id}/start', [MeditationController::class, 'startMeditation'])->name('meditation.start');
+    Route::post('/meditation/{id}/stop', [MeditationController::class, 'stopMeditation'])->name('meditation.stop');
 
     // Achievement Page
     Route::get('/achievement', [AchievementController::class, 'showAchievementPage'])->name('achievementPage');
@@ -36,5 +39,4 @@ Route::middleware(['auth'])->group(function () {
     // Analytic Page
     Route::get('/analytics', [AnalyticController::class, 'showAnalyticPage'])->name('analytics');
     Route::get('/analytics/data', [AnalyticController::class, 'fetchData'])->name('analyticsData');
-
 });

@@ -16,6 +16,7 @@ class Meditation extends Model
     //     'date_added',
     //     'status',
     //     'logo',
+    //     'time',
     //     'analytic_id'
     // ];
 
@@ -25,6 +26,4 @@ class Meditation extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-
 }
