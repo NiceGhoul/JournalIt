@@ -49,7 +49,7 @@
         @endif
 
         <div class="text-center space-y-8">
-            <button class="text-3xl font-bold">Meditation Counter</button>
+            <label class="text-2xl font-bold" for="title">{{ $meditation->name }}</label>
             <div class="relative flex items-center justify-center w-64 h-64">
 
                 <svg class="absolute w-full h-full transform ml-40 -rotate-90" viewBox="0 0 100 100">
