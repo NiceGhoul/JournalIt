@@ -23,7 +23,11 @@ return new class extends Migration
             $table->foreignId('analytic_id')
                 ->constrained('analytics')
                 ->onDelete('cascade')->nullable();
+            
+            $table->time('timer');
+            $table->time('target_time');
             $table->timestamps();
+            
         });
     }
 

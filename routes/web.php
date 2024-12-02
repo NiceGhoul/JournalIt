@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/to-do-lists/{id}/update-progress', [ToDoListController::class, 'updateProgress'])->name('updateProgress');
 
     Route::get('/meditation', [MeditationController::class, 'showMeditationPage'])->name('meditationPage');
+    Route::post('/addmeditation', [MeditationController::class, 'storeMeditate'])->name('AddMeditation');
+
 
     // Achievement Page
     Route::get('/achievement', [AchievementController::class, 'showAchievementPage'])->name('achievementPage');
