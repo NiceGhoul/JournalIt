@@ -17,4 +17,5 @@ class AchievementController extends Controller
         return view('achievement', compact('allAchievements', 'unlockedAchievements'));
     }
 
+    
 }

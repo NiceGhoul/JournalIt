@@ -21,7 +21,13 @@ return new class extends Migration
             $table->date('done_date')->nullable();
             $table->string('status');
             $table->string('logo')->nullable();
+            // $table->foreignId('analytic_id')->constrained('analytics')->onDelete('cascade')->nullable();     
+            // current time     
+            $table->time('timer');
+            // time set by user
+            $table->time('target_timer');
             $table->timestamps();
+            
         });
     }
 
