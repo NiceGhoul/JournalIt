@@ -59,7 +59,8 @@ class MeditationController extends Controller
     $meditation->status = 'ongoing';
     $meditation->save();
 
-    return response()->json(['message' => 'starting meditation session.']);
+    // return response()->json(['message' => 'starting meditation session.']);
+    return redirect()->route('meditation.counter')->with('success', 'Meditation session started.');
 }
 
 public function stopMeditation(Request $request, $id)
@@ -73,11 +74,29 @@ public function stopMeditation(Request $request, $id)
 
     $elapsedTime = $targetTimeInSeconds - $timeRemaining;
 
-    $meditation->timer = gmdate('H:i:s', $elapsedTime);
-    $meditation->status = $timeRemaining === 0 ? 'completed' : 'not-started';
+    if($elapsedTime < 0){
+        $elapsedTime = 0;
+    }
+
+    if ($timeRemaining === 0) {
+        $meditation->timer = gmdate('H:i:s', $targetTimeInSeconds);
+    }else{
+        $meditation->timer = gmdate('H:i:s', $elapsedTime);
+    }
+
+    
+    if($timeRemaining === 0){
+        $meditation->status = 'completed';
+    } else if($timeRemaining === $targetTimeInSeconds){
+        $meditation->status = 'not-started';
+    }else{
+        $meditation->status = 'ongoing';
+    }
     $meditation->save();
 
-    return response()->json(['message' => 'session stopped.']);
+    // return response()->json(['message' => 'session stopped.']);
+    return redirect()->route('meditation.counter')->with('success', 'Meditation session stopped.');
 }
+
 
 }
