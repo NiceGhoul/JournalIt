@@ -53,14 +53,19 @@ class MeditationController extends Controller
         return view('meditationCounter', compact('meditation'));
     }
 
+    public function deleteSession($id){
+        $meditation = Meditation::findOrFail($id);
+        $meditation->delete();
+        return redirect()->back()->with('success', 'Session deleted successfully.');
+    }
+
     public function startMeditation($id)
 {
     $meditation = Meditation::findOrFail($id);
     $meditation->status = 'ongoing';
     $meditation->save();
 
-    // return response()->json(['message' => 'starting meditation session.']);
-    return redirect()->route('meditation.counter')->with('success', 'Meditation session started.');
+    return response()->json(['success' => 'starting meditation session.']);
 }
 
 public function stopMeditation(Request $request, $id)
@@ -94,8 +99,8 @@ public function stopMeditation(Request $request, $id)
     }
     $meditation->save();
 
-    // return response()->json(['message' => 'session stopped.']);
-    return redirect()->route('meditation.counter')->with('success', 'Meditation session stopped.');
+    return response()->json(['success' => 'session stopped.']);
+
 }
 
 

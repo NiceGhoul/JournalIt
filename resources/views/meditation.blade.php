@@ -23,9 +23,9 @@
 
 
         <div class="flex space-x-4">
-            <h1 class="text-3xl font-bold text-white ">Session</h1>
+            <h1 class="text-3xl font-bold text-white">Session</h1>
             <div class="container flex justify-end items-center gap-4">
-                <!-- add sessions -->
+                <!-- Add Session Button -->
                 <button type="button"
                     class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200"
                     data-bs-toggle="modal" data-bs-target="#addToDoModal">
@@ -35,10 +35,33 @@
                     Add
                 </button>
 
+                <!-- Delete Button (Initially visible) -->
+                <button type="button"
+                    class="flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                    onclick="showCancelButton()" id="delete-btn">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="currentColor">
+                        <path
+                            d="M3 6h18M9 6v12m6-12v12M4 6V4h16v2H4zm1 4h14c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1V11c0-.55.45-1 1-1z" />
+                    </svg>
+                    Delete
+                </button>
+
+                <!-- Cancel Button (Initially hidden) -->
+                <button type="button"
+                    class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                    onclick="showDeleteButton()" id="cancel-btn">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 8.586L14.657 4 16 5.343 11.343 10l4.657 4.657-1.343 1.343L10 11.343l-4.657 4.657-1.343-1.343L8.657 10 4 5.343 5.343 4 10 8.586z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Cancel
+                </button>
+
                 <!-- History Button -->
                 <a href="{{ route('ToDoListHistory') }}"
                     class="flex items-center bg-gray-600 text-white py-2 px-4 rounded-lg shadow hover:bg-gray-700 hover:shadow-lg transition duration-200">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="currentColor">
                         <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V7h2v2z" />
                     </svg>
                     History
@@ -87,20 +110,52 @@
                                     </div>
                                 </div>
 
-                                <!-- Update Progress Button -->
-                                {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#updateProgressModal{{ $todo->id }}" onclick="{{ route('meditationPage.counter') }}">
-                                    Update Progress
-                                </button> --}}
+                                <div class="container flex justify-left items-center gap-4">
+                                    <form action="{{ route('meditation.counter', $todo->id) }}" method="GET">
+                                        <button type="submit" class="btn btn-primary">
+                                            Start
+                                        </button>
+                                    </form>
 
-                                <form action="{{ route('meditation.counter', $todo->id) }}" method="GET">
+                                    <form action="{{ route('meditation.delete', $todo->id) }}" method="GET">
+                                        <button type="submit"
+                                            class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                                            id="del-session-{{ $todo->id }}">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
 
-                                    <button type="submit" class="btn btn-primary">
-                                        Start
-                                    </button>
 
+                                <!-- Modal for Delete Confirmation -->
+                                <div class="modal fade" id="confirmDeleteModal{{ $todo->id }}" tabindex="-1"
+                                    aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this Todo list?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- Cancel Button -->
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
 
-                                </form>
+                                                <!-- Delete Confirmation Button -->
+                                                <form action="{{ route('DeleteToDoList', $todo->id) }}" method="POST"
+                                                    class="inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                                 <!-- Modal for Updating Progress -->
@@ -158,18 +213,13 @@
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
-                        <!-- <div class="mb-3">
-                                                        <label for="to_do_date" class="form-label">To-Do Date</label>
-                                                        <input type="date" class="form-control" id="to_do_date" name="to_do_date" required>
-                                                    </div> -->
+
                         <div class="mb-3">
                             <label for="logo" class="form-label">Logo</label>
                             <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
                         </div>
                         <div class="mb-3">
-                            <!-- <label for="target_timer" class="form-label">Target</label>
-                                                        <input type="time" step="60" class="form-control" id="target" name="target" min="1"
-                                                            required> -->
+
                             <label for="timer">Durasi Waktu (Minutes):</label>
                             <input type="number" id="target_timer" name="target_timer" placeholder="minutes" required>
                         </div>
@@ -179,4 +229,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function showCancelButton() {
+            document.getElementById('cancel-btn').classList.remove('hidden');
+            document.getElementById('delete-btn').classList.add('hidden');
+            let deleteButtons = document.querySelectorAll('[id^="del-session-"]');
+            deleteButtons.forEach(button => button.classList.remove('hidden'));
+        }
+
+        function showDeleteButton() {
+            document.getElementById('cancel-btn').classList.add('hidden');
+            document.getElementById('delete-btn').classList.remove('hidden');
+            let deleteButtons = document.querySelectorAll('[id^="del-session-"]');
+            deleteButtons.forEach(button => button.classList.add('hidden'));
+
+        }
+    </script>
+
+
+
+
 @endsection

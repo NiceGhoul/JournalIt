@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/meditation', [MeditationController::class, 'showMeditationPage'])->name('meditationPage');
     Route::post('/addmeditation', [MeditationController::class, 'storeMeditate'])->name('AddMeditation');
     Route::get('/meditation/counter/{id}', [MeditationController::class, 'showCounter'])->name('meditation.counter');
+    Route::get('/meditation/counter/delete/{id}', [MeditationController::class, 'deleteSession'])->name('meditation.delete');
     Route::post('/meditation/{id}/start', [MeditationController::class, 'startMeditation'])->name('meditation.start');
     Route::post('/meditation/{id}/stop', [MeditationController::class, 'stopMeditation'])->name('meditation.stop');
 
