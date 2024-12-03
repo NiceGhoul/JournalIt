@@ -38,7 +38,7 @@
             <div class="flex flex-col gap-4 mt-5">
                 @forelse ($toDoLists as $todo)
                     <div
-                        class="bg-white shadow-md rounded-lg p-4 flex flex-row items-center transition-shadow duration-300 hover:shadow-lg">
+                        class="bg-customBlue shadow-md rounded-lg p-4 flex flex-row items-center transition-shadow duration-300 hover:shadow-lg border-3 border-black">
                         <!-- Image -->
                         @if ($todo->logo)
                             <img src="{{ asset($todo->logo) }}" class="h-24 w-24 object-cover rounded-md mr-4"
@@ -48,7 +48,7 @@
                         <!-- Content -->
                         <div class="flex-1">
                             <h5 class="text-lg font-semibold">{{ $todo->name }}</h5>
-                            <p class="text-gray-600">
+                            <p class="text-black">
                                 Target: {{ $todo->target }} <br>
                                 Status: {{ $todo->status }}
                             </p>

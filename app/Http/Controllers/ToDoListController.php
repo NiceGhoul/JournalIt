@@ -74,4 +74,15 @@ class ToDoListController extends Controller
 
         return redirect()->back()->with('success', 'Progress updated successfully!');
     }
+
+    public function destroy($id)
+    {
+        // Find the todo item by ID
+        $todo = ToDoList::findOrFail($id);
+
+        // Delete the todo
+        $todo->delete();
+
+        return redirect()->back()->with('success', 'Todo deleted successfully.');
+    }
 }

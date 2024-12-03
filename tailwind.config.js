@@ -20,6 +20,7 @@ export default {
         analytic: "#82B9D9",
         cardHome: "#EDB1B1",
         cardHomeText: "#6B5050",
+        customBlue: "#0674B4",
       },
       boxShadow: {
         custom: "10px 10px 15px rgba(0, 0, 0, 0.8)",

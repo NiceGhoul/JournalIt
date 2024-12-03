@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/todolist/history', [ToDoListController::class, 'showHistory'])->name('ToDoListHistory');
     Route::post('/addtodolist', [ToDoListController::class, 'store'])->name('AddToDoList');
     Route::patch('/to-do-lists/{id}/update-progress', [ToDoListController::class, 'updateProgress'])->name('updateProgress');
+    Route::delete('/deletetodolist/{id}', [ToDoListController::class, 'destroy'])->name('DeleteToDoList');
+
 
     // meditation page
     Route::get('/meditation', [MeditationController::class, 'showMeditationPage'])->name('meditationPage');
