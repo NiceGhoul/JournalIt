@@ -10,6 +10,8 @@ class AchievementController extends Controller
 {
     public function showAchievementPage(){
         $user = Auth::user();
+        $achievementController = new UserAchievementController();
+        $achievementController->giveAllAchievements($user);
         $allAchievements = Achievement::all();
 
         $unlockedAchievements = $user->achievements()->wherePivot('status', 'Unlocked')->get();

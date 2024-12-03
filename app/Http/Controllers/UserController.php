@@ -80,8 +80,10 @@ class UserController extends Controller
 
     public function profile()
     {
+
         $user = Auth::user();
-        return view('profile', ['user' => $user]);
+        $latestAchievements = $user->achievements()->wherePivot('status', 'Unlocked')->orderBy('pivot_updated_at', 'desc')->limit(3)->get();
+        return view('profile', compact('user', 'latestAchievements'));
     }
 
     public function uploadProfilePicture(Request $request)

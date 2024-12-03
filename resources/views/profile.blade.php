@@ -68,8 +68,33 @@
 
             <div class="card bg-theme text-white flex-grow-1 mt-4">
                 <div class="card-body border border-b-2">
-                    <h5 class="text-3xl font-bold">Achievement</h5>
-                    <p><i class="bi bi-trophy"></i> Special achievement details can go here.</p>
+                    <h5 class="text-3xl font-bold mb-4">Latest Achievements</h5>
+                    
+                    <!-- Menampilkan 3 achievement terbaru -->
+                    @if($latestAchievements->isEmpty())
+                        <p><i class="bi bi-trophy"></i> No achievements unlocked yet.</p>
+                    @else
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            @foreach($latestAchievements as $achievement)
+                                <div class="col">
+                                    <div class="card nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg bg-theme hover:bg-themeLight text-white shadow-lg border-0 rounded">
+                                        <!-- Pastikan gambar terpusat dengan class d-flex dan justify-content-center -->
+                                        <div class="card-body d-flex flex-column align-items-center">
+                                            @if($achievement->logo)
+                                            <a href="{{route('achievementPage')}}" class="d-block">
+                                                <img src="{{ asset($achievement->logo) }}" 
+                                                     class="card-img-top mb-3" 
+                                                     alt="Achievement Logo" 
+                                                     style="height: 100px; width: 100px; object-fit: contain;">
+                                            </a>
+                                            @endif
+                                            <h6 class="card-title text-center">{{ $achievement->title }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
 

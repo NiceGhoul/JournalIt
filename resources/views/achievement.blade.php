@@ -10,45 +10,44 @@
     <div class="flex justify-center mb-6">
         <button 
             id="unlocked-tab" 
-            class="px-6 py-2 mx-2 text-lg font-medium text-white  bg-themeLight hover:bg-theme rounded-lg focus:outline-none"
+            class="px-6 py-2 mx-2 text-lg font-medium text-white bg-themeLight hover:bg-theme rounded-lg focus:outline-none"
             onclick="toggleTab('unlocked')">
             Unlocked Achievements
         </button>
         <button 
             id="locked-tab" 
-            class="px-6 py-2 mx-2 text-lg font-medium text-white  bg-themeLight hover:bg-theme rounded-lg focus:outline-none"
+            class="px-6 py-2 mx-2 text-lg font-medium text-white bg-themeLight hover:bg-theme rounded-lg focus:outline-none"
             onclick="toggleTab('locked')">
             All Achievements
         </button>
     </div>
 
     <!-- Unlocked Achievements Grid -->
-    <div id="unlocked-achievements" class="grid grid-cols-1 sm:grid-cols-2 gap-6 hidden">
+    <div id="unlocked-achievements" class="grid grid-cols-1 sm:grid-cols-3 gap-6 hidden">
         @if($unlockedAchievements->isEmpty()) 
             <div class="col-span-full text-center text-gray-500">
                 <p class="text-8xl">WOW SO EMPTY</p>
             </div>
         @else
             @foreach ($unlockedAchievements as $achievement)
-                <div class=" bg-themeLight hover:bg-theme shadow-lg rounded-lg p-4 flex flex-col justify-between h-full">
+                <div class="bg-themeLight hover:bg-theme shadow-lg rounded-lg p-3 flex flex-col justify-between h-full nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
                     @if ($achievement->logo)
-                        <img src="{{ asset($achievement->logo) }}" alt="Achievement Logo" class="w-24 h-24 object-cover mb-4 mx-auto">
+                        <img src="{{ asset($achievement->logo) }}" alt="Achievement Logo" class="w-16 h-16 object-cover mb-4 mx-auto">
                     @endif
-                    <h2 class="text-xl font-semibold text-gray-800 text-center">{{ $achievement->title }}</h2>
+                    <h2 class="text-lg font-semibold text-gray-800 text-center">{{ $achievement->title }}</h2>
                     <p class="text-gray-600 mt-2 text-center">{{ $achievement->description }}</p>
                     <p class="text-gray-500 text-xs text-center mt-2">
                         Unlocked at: {{ $achievement->updated_at ? \Carbon\Carbon::parse($achievement->updated_at)->format('d-m-Y') : 'N/A' }}
                     </p>
-                    
                 </div>
             @endforeach
         @endif
     </div>
 
     <!-- Locked Achievements Grid -->
-    <div id="locked-achievements" class="grid grid-cols-1 sm:grid-cols-2 gap-6 hidden">
+    <div id="locked-achievements" class="grid grid-cols-1 sm:grid-cols-3 gap-6 hidden">
         @foreach ($allAchievements as $achievement)
-            <div class="relative bg-themeLight hover:bg-theme shadow-lg rounded-lg p-4 flex flex-col justify-between h-full">
+            <div class="relative bg-themeLight hover:bg-theme shadow-lg rounded-lg p-3 flex flex-col justify-between h-full">
                 <!-- Cek apakah achievement sudah diunlock oleh user -->
                 @if ($achievement->users->where('id', Auth::id())->first() === null || 
                     $achievement->users->where('id', Auth::id())->first()->pivot->status !== 'Unlocked')
@@ -60,10 +59,10 @@
                 @endif
 
                 @if ($achievement->logo)
-                    <img src="{{ asset($achievement->logo) }}" alt="Achievement Logo" class="w-24 h-24 object-cover mb-4 mx-auto">
+                    <img src="{{ asset($achievement->logo) }}" alt="Achievement Logo" class="w-16 h-16 object-cover mb-4 mx-auto">
                 @endif
 
-                <h2 class="text-xl font-semibold text-gray-800 text-center">{{ $achievement->title }}</h2>
+                <h2 class="text-lg font-semibold text-gray-800 text-center">{{ $achievement->title }}</h2>
                 <p class="text-gray-600 mt-2 text-center">{{ $achievement->description }}</p>
             </div>
         @endforeach

@@ -44,20 +44,48 @@ class AchievementSeeder extends Seeder
                 'updated_at' => $now
 
             ], [
-                'title' => 'Achievement 5',
-                'description' => 'Desc 5',
-                'logo' => '/assets/profilePic/nico.jpg',
+                'title' => 'Discipline Enough',
+                'description' => 'Finish Your First Meditation Session',
+                'logo' => '/assets/achievementPic/meditate1.jpg',
+                'created_at' => $now,
+                'updated_at' => $now
+
+            ]  , [
+                'title' => 'Great Discipline',
+                'description' => 'Finish Your 5 Meditation Session',
+                'logo' => '/assets/achievementPic/meditate2.jpg',
                 'created_at' => $now,
                 'updated_at' => $now
 
             ] , [
-                'title' => 'Achievement 6',
-                'description' => 'Desc 6',
-                'logo' => '/assets/profilePic/nico.jpg',
+                'title' => 'Hard Core Discipline',
+                'description' => 'Finish Your 20 Meditation Session',
+                'logo' => '/assets/achievementPic/meditate3.jpg',
                 'created_at' => $now,
                 'updated_at' => $now
 
-            ] 
+            ], [
+                'title' => 'First Hour',
+                'description' => 'You have Meditated for an Hour',
+                'logo' => '/assets/achievementPic/clock.jpg',
+                'created_at' => $now,
+                'updated_at' => $now
+
+            ] , [
+                'title' => 'Five Hour',
+                'description' => 'You have Meditated for 5 Hour',
+                'logo' => '/assets/achievementPic/clock5.jpg',
+                'created_at' => $now,
+                'updated_at' => $now
+
+            ] , [
+                'title' => 'Ten Hour',
+                'description' => 'You have Meditated for 10 Hour... Crazy',
+                'logo' => '/assets/achievementPic/clock10.jpg',
+                'created_at' => $now,
+                'updated_at' => $now
+
+            ]
             ];
             DB::table('achievements')->insert($achievements);
 
