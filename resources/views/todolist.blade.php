@@ -107,7 +107,6 @@
                                 data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $todo->id }}">
                                 Delete Todo List
                             </button>
-
                         </div>
                     </div>
                     <!-- Modal for Delete Confirmation -->
