@@ -134,14 +134,14 @@
                                 <div class="container flex justify-left items-center gap-4">
                                     <form action="{{ route('meditation.counter', $meditation->id) }}" method="GET">
                                         <button type="submit"
-                                            class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200">
+                                            class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200 border-black border-1">
                                             Start
                                         </button>
                                     </form>
 
                                     <button type="submit" data-bs-toggle="modal"
                                         data-bs-target="#confirmDeleteModal{{ $meditation->id }}"
-                                        class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                                        class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
                                         id="del-session-{{ $meditation->id }}">
                                         Delete
                                     </button>

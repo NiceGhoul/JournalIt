@@ -35,6 +35,29 @@
                         Add
                     </button>
 
+                    <!-- Delete Button (enable delete mode) -->
+                    <button type="button"
+                        class="flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                        onclick="showCancelButton()" id="delete-btn">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="currentColor">
+                            <path
+                                d="M3 6h18M9 6v12m6-12v12M4 6V4h16v2H4zm1 4h14c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1V11c0-.55.45-1 1-1z" />
+                        </svg>
+                        Delete
+                    </button>
+
+                    <!-- Cancel Button (show only in delete mode) -->
+                    <button type="button"
+                        class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                        onclick="showDeleteButton()" id="cancel-btn">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 8.586L14.657 4 16 5.343 11.343 10l4.657 4.657-1.343 1.343L10 11.343l-4.657 4.657-1.343-1.343L8.657 10 4 5.343 5.343 4 10 8.586z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Cancel
+                    </button>
+
                     <!-- History Button with Icon -->
                     <a href="{{ route('ToDoListHistory') }}"
                         class="flex items-center bg-gray-600 text-white py-2 px-4 rounded-lg shadow hover:bg-gray-700 hover:shadow-lg transition duration-200">
@@ -50,7 +73,7 @@
             <div class="flex flex-col gap-3">
                 @forelse ($toDoLists as $todo)
                     <div
-                        class="bg-customBlue shadow-md rounded-lg p-4 flex flex-row items-start transition-shadow duration-300 hover:shadow-lg border-3 border-black">
+                        class="bg-customBlue shadow-md rounded-lg p-4 flex flex-row items-start transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 border-3 border-black">
                         <!-- Image -->
                         @if ($todo->logo)
                             <img src="{{ asset($todo->logo) }}"
@@ -85,11 +108,11 @@
                                         <div class="h-3 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300 ease-out"
                                             style="width: {{ $progressPercentage }}%;">
                                             <!-- Percentage text inside the progress bar -->
-                                            <span style="top: -2px;"class="text-xs text-black absolute right-0 pr-2">{{ round($progressPercentage) }}%</span>
+                                            <span style="top: -2px;"
+                                                class="text-xs text-black absolute right-0 pr-2">{{ round($progressPercentage) }}%</span>
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <!-- Status -->
                                 <div>
@@ -97,17 +120,24 @@
                                 </div>
                             </div>
 
-                            <!-- Update Progress Button -->
-                            <button type="button" class="btn btn-primary mt-2  border-3 border-black"
-                                data-bs-toggle="modal" data-bs-target="#updateProgressModal{{ $todo->id }}">
-                                Update Progress
-                            </button>
-                            <!-- Delete Todo Button (Trigger Modal) -->
-                            <button type="button" class="btn btn-danger mt-2 ml-4 border-3 border-black"
-                                data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $todo->id }}">
-                                Delete Todo List
-                            </button>
+                            <div class="container flex justify-left items-center gap-2 mt-2">
+                                <!-- Update Progress Button -->
+                                <button type="button" class="flex items-center bg-blue-500 text-white py-2 px-2 rounded-lg shadow hover:bg-blue-600 hover:shadow-lg transition duration-200 border-black border-1"
+                                    data-bs-toggle="modal" data-bs-target="#updateProgressModal{{ $todo->id }}">
+                                    Update Progress
+                                </button>
+                                <!-- Delete Todo Button (Trigger Modal) -->
+                                <button type="button"
+                                    class="hidden flex items-center bg-red-500 text-white py-2 px-2 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
+                                    id="del-todo-{{ $todo->id }}" data-bs-toggle="modal"
+                                    data-bs-target="#confirmDeleteModal{{ $todo->id }}">
+                                    Delete Todo List
+                                </button>
+                            </div>
+
+                            
                         </div>
+
                     </div>
                     <!-- Modal for Delete Confirmation -->
                     <div class="modal fade" id="confirmDeleteModal{{ $todo->id }}" tabindex="-1"
@@ -157,55 +187,13 @@
                                             <input type="number" class="form-control" id="progress" name="progress"
                                                 min="1" max="{{ $todo->target - $todo->progress }}" required>
                                         </div>
-                                        <div class="modal-body">
-                                            Are you sure you want to delete this Todo list?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <!-- Cancel Button -->
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-
-                                            <!-- Delete Confirmation Button -->
-                                            <form action="{{ route('DeleteToDoList', $todo->id) }}" method="POST"
-                                                class="inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Yes, Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- Modal for Updating Progress -->
-                            <div class="modal fade" id="updateProgressModal{{ $todo->id }}" tabindex="-1"
-                                aria-labelledby="updateProgressModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="updateProgressModalLabel">Update Progress</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{ route('updateProgress', $todo->id) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <div class="mb-3">
-                                                    <label for="progress" class="form-label">Add Progress</label>
-                                                    <input type="number" class="form-control" id="progress"
-                                                        name="progress" min="1"
-                                                        max="{{ $todo->target - $todo->progress }}" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 @empty
                     <h1 class="text-center text-gray-700">There is no to-do list. Click the plus button to add your to-do!
                     </h1>
@@ -261,4 +249,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function showCancelButton() {
+            document.getElementById('cancel-btn').classList.remove('hidden');
+            document.getElementById('delete-btn').classList.add('hidden');
+            let deleteButtons = document.querySelectorAll('[id^="del-todo-"]');
+            deleteButtons.forEach(button => button.classList.remove('hidden'));
+        }
+
+        function showDeleteButton() {
+            document.getElementById('cancel-btn').classList.add('hidden');
+            document.getElementById('delete-btn').classList.remove('hidden');
+            let deleteButtons = document.querySelectorAll('[id^="del-todo-"]');
+            deleteButtons.forEach(button => button.classList.add('hidden'));
+        }
+
+        function showBackButton(){
+            
+        }
+    </script>
+
 @endsection
