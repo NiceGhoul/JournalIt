@@ -22,8 +22,9 @@
         @endif
 
 
-        <div class="flex space-x-4">
+        <div class="flex justify-between items-center pb-4 border-b border-gray-600">
             <h1 class="text-3xl font-bold text-white">Session</h1>
+            {{-- top part --}}
             <div class="container flex justify-end items-center gap-4">
                 <!-- Add Session Button -->
                 <button type="button"
@@ -35,7 +36,7 @@
                     Add
                 </button>
 
-                <!-- Delete Button (Initially visible) -->
+                <!-- Delete Button (enable delete mode) -->
                 <button type="button"
                     class="flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
                     onclick="showCancelButton()" id="delete-btn">
@@ -46,7 +47,7 @@
                     Delete
                 </button>
 
-                <!-- Cancel Button (Initially hidden) -->
+                <!-- Cancel Button (show only in delete mode) -->
                 <button type="button"
                     class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
                     onclick="showDeleteButton()" id="cancel-btn">
@@ -59,7 +60,7 @@
                 </button>
 
                 <!-- History Button -->
-                <a href="{{ route('ToDoListHistory') }}"
+                <a href="{{ route('meditationPage.history') }}"
                     class="flex items-center bg-gray-600 text-white py-2 px-4 rounded-lg shadow hover:bg-gray-700 hover:shadow-lg transition duration-200">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="currentColor">
                         <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V7h2v2z" />
@@ -71,64 +72,85 @@
         <br>
         <div class="container mx-auto mt-3 mb-4">
             <div class="flex flex-col gap-3">
-                @forelse ($meditations as $todo)
-                    <div class="card" style="width: 100%;">
+                @forelse ($meditations as $meditation)
+                    <div style="width: 100%;">
                         <div
-                            class="bg-white shadow-md rounded-lg p-4 flex flex-row items-center transition-shadow duration-300 hover:shadow-lg">
+                            class="bg-customBlue shadow-md rounded-lg p-4 flex flex-row items-center transition-shadow transition-transform ease-in-out  duration-300 hover:shadow-lg hover:-translate-y-1 border-2 border-black">
                             <!-- Image -->
-                            @if ($todo->logo)
-                                <img src="{{ asset($todo->logo) }}" class="h-24 w-24 object-cover rounded-md mr-4"
+                            @if ($meditation->logo)
+                                <img src="{{ asset($meditation->logo) }}" class="h-24 w-24 object-cover rounded-md mr-4"
                                     alt="Meditate Logo">
                             @endif
 
                             <!-- Content -->
-                            <div class="flex-1">
-                                <h5 class="text-lg font-semibold">{{ $todo->name }}</h5>
-                                <p class="text-gray-600">
-                                    Target: {{ $todo->target_timer }} <br>
-                                    Status: {{ $todo->status }}
-                                </p>
+                            <div class="meditation-container w-full">
+
+                                <h5 class="text-white text-lg font-semibold">{{ $meditation->name }}</h5>
+
+                                <div class="flex justify-between text-gblack mt-4 w-full mb-4">
+                                    <div>
+                                        <p class="text-white">
+                                            Target: {{ $meditation->target_timer }}
+                                        </p>
+                                    </div>
+                                    <div class="flex-1 mx-4 mt-1.5 relative w-full">
+                                        
+                                        @php
+                                            $timerParts = explode(':', $meditation->timer);
+                                            $timerInSeconds = $timerParts[0] * 3600 + $timerParts[1] * 60 + $timerParts[2];
+    
+                                            $targetParts = explode(':', $meditation->target_timer);
+                                            $targetTimeInSeconds =
+                                                $targetParts[0] * 3600 + $targetParts[1] * 60 + $targetParts[2];
+    
+                                            $progressPercentage = $targetTimeInSeconds
+                                                ? ($timerInSeconds / $targetTimeInSeconds) * 100
+                                                : 0;
+                                        @endphp
+                                        <!-- Outer container for the progress bar -->
+                                        <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-md">
+                                            <!-- Inner progress bar with gradient, smooth transition, and rounded corners -->
+                                            <div class="h-3 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300 ease-out"
+                                                style="width: {{ $progressPercentage }}%;">
+                                                <!-- Percentage text inside the progress bar -->
+                                                <span style="top: -2px;"
+                                                    class="text-xs text-black absolute right-0 pr-2">{{ round($progressPercentage) }}%</span>
+                                            </div>
+                                        </div>                              
+                                    </div>
+                                    <div>
+                                        <p class="text-white">Status: {{ $meditation->status }}</p>
+                                    </div>
+                                </div>
 
                                 <!-- Progress Bar -->
-                                @php
-                                    $timerParts = explode(':', $todo->timer);
-                                    $timerInSeconds = $timerParts[0] * 3600 + $timerParts[1] * 60 + $timerParts[2];
-
-                                    $targetParts = explode(':', $todo->target_timer);
-                                    $targetTimeInSeconds =
-                                        $targetParts[0] * 3600 + $targetParts[1] * 60 + $targetParts[2];
-
-                                    $progressPercentage = $targetTimeInSeconds
-                                        ? ($timerInSeconds / $targetTimeInSeconds) * 100
-                                        : 0;
-                                @endphp
-
-                                <div class="progress mb-3" style="height: 20px;">
+                                {{-- <div class="progress mb-3" style="height: 20px;">
                                     <div class="progress-bar" role="progressbar" style="width: {{ $progressPercentage }}%;"
                                         aria-valuenow="{{ $progressPercentage }}" aria-valuemin="0" aria-valuemax="100">
                                         {{ round($progressPercentage) }}%
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="container flex justify-left items-center gap-4">
-                                    <form action="{{ route('meditation.counter', $todo->id) }}" method="GET">
-                                        <button type="submit" class="btn btn-primary">
+                                    <form action="{{ route('meditation.counter', $meditation->id) }}" method="GET">
+                                        <button type="submit"
+                                            class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200">
                                             Start
                                         </button>
                                     </form>
 
-                                    <form action="{{ route('meditation.delete', $todo->id) }}" method="GET">
-                                        <button type="submit"
-                                            class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
-                                            id="del-session-{{ $todo->id }}">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    <button type="submit" data-bs-toggle="modal"
+                                        data-bs-target="#confirmDeleteModal{{ $meditation->id }}"
+                                        class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                                        id="del-session-{{ $meditation->id }}">
+                                        Delete
+                                    </button>
                                 </div>
-
-
+                            </div>
+                        </div>
+                        
                                 <!-- Modal for Delete Confirmation -->
-                                <div class="modal fade" id="confirmDeleteModal{{ $todo->id }}" tabindex="-1"
+                                <div class="modal fade" id="confirmDeleteModal{{ $meditation->id }}" tabindex="-1"
                                     aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -146,8 +168,8 @@
                                                     data-bs-dismiss="modal">Cancel</button>
 
                                                 <!-- Delete Confirmation Button -->
-                                                <form action="{{ route('DeleteToDoList', $todo->id) }}" method="POST"
-                                                    class="inline-block">
+                                                <form action="{{ route('meditation.delete', $meditation->id) }}"
+                                                    method="GET" class="inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">Yes, Delete</button>
@@ -159,7 +181,7 @@
 
 
                                 <!-- Modal for Updating Progress -->
-                                <div class="modal fade" id="updateProgressModal{{ $todo->id }}" tabindex="-1"
+                                <div class="modal fade" id="updateProgressModal{{ $meditation->id }}" tabindex="-1"
                                     aria-labelledby="updateProgressModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -169,14 +191,16 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{ route('updateProgress', $todo->id) }}" method="POST">
+                                                <form action="{{ route('updateProgress', $meditation->id) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('PATCH')
                                                     <div class="mb-3">
                                                         <label for="progress" class="form-label">Add Progress</label>
                                                         <input type="number" class="form-control" id="progress"
                                                             name="progress" min="1"
-                                                            max="{{ $todo->target - $todo->progress }}" required>
+                                                            max="{{ $meditation->target - $meditation->progress }}"
+                                                            required>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Submit</button>
                                                 </form>
@@ -184,11 +208,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                     </div>
                 @empty
-                    <h1 class="mx-auto">There is no Meditation session. Click the plus button to add your session!</h1>
+                    <h1 class="mx-auto font-bold text-xl text-white">There is no Meditation session. Click the plus button
+                        to add your session!</h1>
                 @endforelse
             </div>
 
@@ -218,8 +241,8 @@
                             <label for="logo" class="form-label">Logo</label>
                             <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
                         </div>
-                        <div class="mb-3">
 
+                        <div class="mb-3">
                             <label for="timer">Durasi Waktu (Minutes):</label>
                             <input type="number" id="target_timer" name="target_timer" placeholder="minutes" required>
                         </div>
@@ -243,7 +266,6 @@
             document.getElementById('delete-btn').classList.remove('hidden');
             let deleteButtons = document.querySelectorAll('[id^="del-session-"]');
             deleteButtons.forEach(button => button.classList.add('hidden'));
-
         }
     </script>
 

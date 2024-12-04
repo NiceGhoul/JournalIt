@@ -38,6 +38,16 @@ class MeditationController extends Controller
 
     }
 
+    public function showHistory(){
+        $user = Auth::user();
+        $meditations = Meditation::where('user_id', $user->id)
+            ->where('status',  'completed')
+            ->orderBy('done_date', 'desc')
+            ->paginate(3);
+
+        return view('meditationHistory', compact('meditations'));  
+    }
+
     public function showMeditationPage(){
         $user = Auth::user();
         $meditations = Meditation::where('user_id', $user->id)

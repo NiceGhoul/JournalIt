@@ -20,7 +20,7 @@ class MeditationSeeder extends Seeder
         $faker = Faker::create();
 
         User::all()->each(function($user) use ($faker) {
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 10; $i++) {
 
                 $doneDate = Carbon::now()->addDays(rand(0, 14));
                 $dateAdded = $doneDate->copy()->subDay(); 

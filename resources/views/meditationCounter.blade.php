@@ -39,9 +39,9 @@
                 <label class="text-3xl font-bold" for="title">current Session:</label>
                 <br>
                 <label class="text-2xl font-bold" for="title">{{ $meditation->name }}</label>
-                <div class="relative flex items-center justify-center w-96 h-96">
+                <div class="relative flex items-center justify-center w-full h-96">
 
-                    <svg class="ml-28 absolute w-full h-full transform -rotate-90" viewBox="0 0 150 150">
+                    <svg class="absolute w-full h-full transform -rotate-90" viewBox="0 0 150 150">
 
                         <circle cx = "75" cy = "75" r="60" stroke="#2d3748" stroke-width="10" fill="none">
                         </circle>
@@ -50,7 +50,7 @@
                             fill="none" stroke-dasharray="376.99" stroke-dashoffset="376.99"></circle>
                     </svg>
                     <div id="circle-content" class="absolute text-center">
-                        <div id="timer" class="ml-28 text-5xl font-bold">{{ gmdate('i:s', $remainingTime) }}
+                        <div id="timer" class="text-5xl font-bold">{{ gmdate('i:s', $remainingTime) }}
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                 } else {
                     clearInterval(timer);
                     const timerContent = document.getElementById('circle-content');
-                    timerContent.innerHTML = "<div class='ml-28 text-3xl font-bold text-green-500'>Completed</div>";
+                    timerContent.innerHTML = "<div class='text-3xl font-bold text-green-500'>Completed</div>";
                     console.log('calling stopMeditations');
                     stopMeditations();
                     console.log('stopMeditations called');
