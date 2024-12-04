@@ -107,16 +107,55 @@
                                 data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $todo->id }}">
                                 Delete Todo List
                             </button>
+                        </div>
+                    </div>
+                    <!-- Modal for Delete Confirmation -->
+                    <div class="modal fade" id="confirmDeleteModal{{ $todo->id }}" tabindex="-1"
+                        aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this TodoList?
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- Cancel Button -->
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-                            <!-- Modal for Delete Confirmation -->
-                            <div class="modal fade" id="confirmDeleteModal{{ $todo->id }}" tabindex="-1"
-                                aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                    <!-- Delete Confirmation Button -->
+                                    <form action="{{ route('DeleteToDoList', $todo->id) }}" method="POST"
+                                        class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Updating Progress -->
+                    <div class="modal fade" id="updateProgressModal{{ $todo->id }}" tabindex="-1"
+                        aria-labelledby="updateProgressModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="updateProgressModalLabel">Update Progress</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('updateProgress', $todo->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <div class="mb-3">
+                                            <label for="progress" class="form-label">Add Progress</label>
+                                            <input type="number" class="form-control" id="progress" name="progress"
+                                                min="1" max="{{ $todo->target - $todo->progress }}" required>
                                         </div>
                                         <div class="modal-body">
                                             Are you sure you want to delete this Todo list?
