@@ -120,7 +120,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure you want to delete this Todo list?
+                                    Are you sure you want to delete this TodoList?
                                 </div>
                                 <div class="modal-footer">
                                     <!-- Cancel Button -->
