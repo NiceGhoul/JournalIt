@@ -146,9 +146,6 @@
             });
         }
 
-
-
-
         function updateProgressCircle() {
             const progressCircle = document.getElementById('progress-circle');
             const circumference = 2 * Math.PI * 60;

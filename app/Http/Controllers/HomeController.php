@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Meditation;
 use App\Models\ToDoList;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,6 +33,8 @@ class HomeController extends Controller
             ->where('status', '!=', 'completed')
             ->limit(5)->get();
 
-        return view('home', compact('todayToDos', 'weekToDos', 'monthToDos'));
+        $ongoingSession = Meditation::where('user_id', $user->id)->where('status', 'ongoing')->limit(3)->get();
+
+        return view('home', compact('todayToDos', 'weekToDos', 'monthToDos', 'ongoingSession'));
     }
 }

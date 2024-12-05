@@ -21,10 +21,11 @@
         @endif
 
         <div class="flex justify-between items-center pb-4 border-b border-gray-600">
-            <h1 class="text-2xl font-bold text-white ">To Do List</h1>
+            <h1 class="text-2xl font-bold text-white">To Do List</h1>
             <div class="flex space-x-4">
                 <div class="container flex justify-end items-center gap-4 "> <!-- Set margin to 0 -->
-                    <!-- Add Button with Icon -->
+
+                    <!-- Add Button -->
                     <button type="button"
                         class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200"
                         data-bs-toggle="modal" data-bs-target="#addToDoModal">
@@ -58,7 +59,7 @@
                         Cancel
                     </button>
 
-                    <!-- History Button with Icon -->
+                    <!-- History Button -->
                     <a href="{{ route('ToDoListHistory') }}"
                         class="flex items-center bg-gray-600 text-white py-2 px-4 rounded-lg shadow hover:bg-gray-700 hover:shadow-lg transition duration-200">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -83,17 +84,17 @@
                         <!-- Content -->
                         <div class="todo-container w-full">
                             <!-- Todo Name -->
-                            <h5 class="text-lg font-semibold">{{ $todo->name }}</h5>
+                            <h5 class="text-lg font-semibold text-white">{{ $todo->name }}</h5>
 
                             <!-- To-Do Date (Below the Name) -->
-                            <p class="text-black">
+                            <p class="text-white font-semibold">
                                 To Do Date: {{ \Carbon\Carbon::parse($todo->to_do_date)->format('F j, Y') }}
                             </p>
 
                             <!-- Flex Row for Target, Progress, and Status -->
                             <div class="flex justify-between text-gblack mt-2 w-full">
                                 <!-- Target -->
-                                <div class="mr-4">
+                                <div class="mr-4 text-white font-semibold">
                                     <p>Target: {{ $todo->target }}</p>
                                 </div>
 
@@ -103,9 +104,9 @@
                                 @endphp
                                 <div class="flex-1 mx-4 mt-1.5 relative w-full">
                                     <!-- Outer container for the progress bar -->
-                                    <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden shadow-md">
+                                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-md">
                                         <!-- Inner progress bar with gradient, smooth transition, and rounded corners -->
-                                        <div class="h-3 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300 ease-out"
+                                        <div class="h-4 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300 ease-out"
                                             style="width: {{ $progressPercentage }}%;">
                                             <!-- Percentage text inside the progress bar -->
                                             <span style="top: -2px;"
@@ -116,19 +117,19 @@
 
                                 <!-- Status -->
                                 <div>
-                                    <p>Status: {{ $todo->status }}</p>
+                                    <p class="font-semibold text-white">Status: {{ $todo->status }}</p>
                                 </div>
                             </div>
 
-                            <div class="container flex justify-left items-center gap-2 mt-2">
+                            <div class="container flex justify-center items-center gap-2 mt-4">
                                 <!-- Update Progress Button -->
-                                <button type="button" class="flex items-center bg-blue-500 text-white py-2 px-2 rounded-lg shadow hover:bg-blue-600 hover:shadow-lg transition duration-200 border-black border-1"
+                                <button type="button" class="font-semibold flex items-center bg-blue-500 text-white py-2 px-2 rounded-lg shadow hover:bg-blue-600 hover:shadow-lg transition duration-200 border-black border-1"
                                     data-bs-toggle="modal" data-bs-target="#updateProgressModal{{ $todo->id }}">
                                     Update Progress
                                 </button>
                                 <!-- Delete Todo Button (Trigger Modal) -->
                                 <button type="button"
-                                    class="hidden flex items-center bg-red-500 text-white py-2 px-2 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
+                                    class="font-semibold hidden flex items-center bg-red-500 text-white py-2 px-2 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
                                     id="del-todo-{{ $todo->id }}" data-bs-toggle="modal"
                                     data-bs-target="#confirmDeleteModal{{ $todo->id }}">
                                     Delete Todo List

@@ -89,7 +89,7 @@
 
                                 <div class="flex justify-between text-gblack mt-4 w-full mb-4">
                                     <div>
-                                        <p class="text-white">
+                                        <p class="text-white font-semibold">
                                             Target: {{ $meditation->target_timer }}
                                         </p>
                                     </div>
@@ -110,7 +110,7 @@
                                         <!-- Outer container for the progress bar -->
                                         <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-md">
                                             <!-- Inner progress bar with gradient, smooth transition, and rounded corners -->
-                                            <div class="h-3 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300 ease-out"
+                                            <div class="h-4 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300 ease-out"
                                                 style="width: {{ $progressPercentage }}%;">
                                                 <!-- Percentage text inside the progress bar -->
                                                 <span style="top: -2px;"
@@ -119,7 +119,7 @@
                                         </div>                              
                                     </div>
                                     <div>
-                                        <p class="text-white">Status: {{ $meditation->status }}</p>
+                                        <p class="text-white font-semibold">Status: {{ $meditation->status }}</p>
                                     </div>
                                 </div>
 
@@ -131,17 +131,17 @@
                                     </div>
                                 </div> --}}
 
-                                <div class="container flex justify-left items-center gap-4">
+                                <div class="container flex justify-center items-center gap-4">
                                     <form action="{{ route('meditation.counter', $meditation->id) }}" method="GET">
                                         <button type="submit"
-                                            class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200 border-black border-1">
+                                            class="font-semibold flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200 border-black border-1">
                                             Start
                                         </button>
                                     </form>
 
                                     <button type="submit" data-bs-toggle="modal"
                                         data-bs-target="#confirmDeleteModal{{ $meditation->id }}"
-                                        class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
+                                        class="font-semibold hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
                                         id="del-session-{{ $meditation->id }}">
                                         Delete
                                     </button>
