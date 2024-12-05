@@ -41,7 +41,7 @@
                 <label class="text-2xl font-bold" for="title">{{ $meditation->name }}</label>
                 <div class="relative flex items-center justify-center w-full h-96">
 
-                    <svg class="absolute w-full h-full transform -rotate-90" viewBox="0 0 150 150">
+                    <svg class="absolute w-96 h-full transform -rotate-90" viewBox="0 0 150 150">
 
                         <circle cx = "75" cy = "75" r="60" stroke="#2d3748" stroke-width="10" fill="none">
                         </circle>
