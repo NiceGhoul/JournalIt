@@ -96,17 +96,16 @@ class UserController extends Controller
 
         $destinationPath = public_path('assets/profilePic');
 
+        // Debugging the directory path and permissions
         if (!file_exists($destinationPath)) {
-            if (!mkdir($destinationPath, 0777, true)) {
-                return back()->with('fail', 'Failed to create directory for profile pictures.');
-            }
+            return back()->with('fail', 'Directory does not exist: ' . $destinationPath);
         }
+
         if (!is_writable($destinationPath)) {
-            return back()->with('fail', 'The directory is not writable. Please check permissions.');
+            return back()->with('fail', 'Directory is not writable: ' . $destinationPath);
         }
 
         $filename = $user->name . '.' . $request->file('profile_picture')->getClientOriginalExtension();
-
 
         try {
             $request->file('profile_picture')->move($destinationPath, $filename);
@@ -120,6 +119,7 @@ class UserController extends Controller
 
         return back()->with('success', 'Profile picture updated successfully!');
     }
+
 
 
 

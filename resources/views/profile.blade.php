@@ -21,13 +21,13 @@
     <div class="row flex-grow-1">
 
         <div class="col-md-3 d-flex flex-column">
-            <div class="card text-center bg-theme text-white h-100 border border-b-2" >
+            <div class="card text-center bg-customDark hover:bg-theme transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg text-white h-100 border border-b-2" >
                 <div class="card-body d-flex flex-column align-items-center">
 
-                    <div class="flex flex-col justify-center align-items-center mb-4">
+                    <div class="flex flex-col justify-center align-items-center mb-4 mt-10">
                         <img src="{{ asset($user->profile_picture) }}" 
                              class="rounded-circle mb-3" 
-                             style="height: 150px; width: 150px;" 
+                             style="height: 200px; width: 200px;" 
                              alt="Profile Picture" 
                              id="profilePicture">
                         <form id="uploadForm" action="/upload-profile-picture" method="POST" enctype="multipart/form-data">
@@ -40,7 +40,7 @@
                         <h4 class="mt-3 text-3xl font-bold">{{ $user->name }}</h4>
                     </div>
         
-                    <div class="flex flex-col text-white p-4 font-bold border border-b-2 gap-3 text-left text-md rounded-lg w-100">
+                    <div class="flex flex-col text-white p-4 font-bold border border-b-2 gap-3 text-left text-md rounded-lg w-80 m-10">
                         <span>Age: {{ $user->age }}</span>
                         <span>Email: {{ $user->email }}</span>
                         <span>Gender: {{ ucfirst($user->gender) }}</span>
@@ -51,23 +51,23 @@
         
         <div class="col-md-9 d-flex flex-column ">
             <div class="d-flex flex-grow-1">
-                <div class="card bg-theme text-white flex-grow-1 me-2 max-w-[50%] border border-b-2">
+                <div class="card  bg-customDark hover:bg-theme transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg text-white flex-grow-1 me-2 max-w-[50%] border border-b-2">
                     <div class="card-body">
                         <h5 class="text-3xl font-bold">Bio</h5>
                         <p>{{ $user->bio }}</p>
                     </div>
                 </div>
 
-                <div class="card bg-theme text-white flex-grow-1 ms-2 max-w-[50%] border border-b-2">
+                <div class="card  bg-customDark hover:bg-theme transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg text-white flex-grow-1 ms-2 max-w-[50%] border border-b-2">
                     <div class="card-body">
-                        <h5 class="text-3xl font-bold">Random Quote</h5>
-                        <p>Fortis Fortuna Adiuvat</p>
+                        <h5 class="text-3xl font-bold">Quotes for you</h5>
+                        <p class="font-bold text-cardHome">Fortis Fortuna Adiuvat</p>
                     </div>
                 </div>
             </div>
 
-            <div class="card bg-theme text-white flex-grow-1 mt-4">
-                <div class="card-body border border-b-2">
+            <div class="card  bg-customDark hover:bg-theme transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg text-white flex-grow-1 mt-4">
+                <div class="card-body border border-b-2 rounded-md">
                     <h5 class="text-3xl font-bold mb-4">Latest Achievements</h5>
                     
                     @if($latestAchievements->isEmpty())
