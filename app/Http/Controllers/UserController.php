@@ -87,24 +87,40 @@ class UserController extends Controller
     }
 
     public function uploadProfilePicture(Request $request)
-{
-    $request->validate([
-        'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    $user = Auth::user();
+        $user = Auth::user();
 
-    $achievementController = new UserAchievementController();
-    $achievementController->giveProfilePicAchievements($user);
+        $destinationPath = public_path('assets/profilePic');
+
+        if (!file_exists($destinationPath)) {
+            if (!mkdir($destinationPath, 0777, true)) {
+                return back()->with('fail', 'Failed to create directory for profile pictures.');
+            }
+        }
+        if (!is_writable($destinationPath)) {
+            return back()->with('fail', 'The directory is not writable. Please check permissions.');
+        }
+
+        $filename = $user->name . '.' . $request->file('profile_picture')->getClientOriginalExtension();
 
 
-    $path = $request->file('profile_picture')->move(public_path('images'), $request->file('profile_picture')->getClientOriginalName());
+        try {
+            $request->file('profile_picture')->move($destinationPath, $filename);
+        } catch (\Exception $e) {
+            return back()->with('fail', 'Error moving the file: ' . $e->getMessage());
+        }
+
+        $user->update([
+            'profile_picture' => 'assets/profilePic/' . $filename,
+        ]);
+
+        return back()->with('success', 'Profile picture updated successfully!');
+    }
 
 
-    $user->update([
-        'profile_picture' => 'images/' . $request->file('profile_picture')->getClientOriginalName(),
-    ]);
 
-    return back()->with('success', 'Profile picture updated successfully!');
-}
 }

@@ -39,14 +39,16 @@
                 <img src="{{ asset(auth()->user()->profile_picture) }}" alt="Profile">
             </div>
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle text-black" href="#" id="profileDropdown" role="button"
+                <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     {{ auth()->user()->name }}
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                    <li><a class="dropdown-item" href="{{ route('ProfilePage') }}">Profile Page</a></li>
+                <ul class="dropdown-menu dropdown-menu-end bg-gray-800 text-white" aria-labelledby="profileDropdown">
                     <li>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
+                        <a class="dropdown-item text-white hover:bg-blue-500" href="{{ route('ProfilePage') }}">Profile Page</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-white hover:bg-red-500" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
@@ -56,6 +58,7 @@
                     </form>
                 </ul>
             </div>
+            
         </div>
         @endauth
 
