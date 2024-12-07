@@ -64,7 +64,7 @@ const fetchData = (category) => {
               },
               title: {
                 display: true,
-                text: "Date",
+                text: "Date Added",
                 font: {
                   size: 16,
                   family: "Arial",

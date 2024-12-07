@@ -17,32 +17,45 @@ class AnalyticController extends Controller
     }
 
     public function fetchData(Request $request)
-    {
-        $userId = Auth::id(); 
-        $category = $request->input('category'); 
+{
+    $userId = Auth::id();
+    $category = $request->input('category');
 
-        if ($category === 'meditation') {
-            $data = Meditation::where('user_id', $userId)->get();
-        } else {
-            $data = ToDoList::where('user_id', $userId)->get();
-        }
+    // Fetch data based on category
+    if ($category === 'meditation') {
+        $data = Meditation::where('user_id', $userId)->get();
+    } else {
+        $data = ToDoList::where('user_id', $userId)->get();
+    }
 
-        $total = $data->count();
-        $completed = $data->where('status', 'completed')->count();
-        $ongoing = $data->where('status', 'ongoing')->count();
+    // Generate the last 10 days including today
+    $dates = collect();
+    for ($i = 9; $i >= 0; $i--) {
+        $dates->push(now()->subDays($i)->format('Y-m-d'));
+    }
 
-        $history = $data->groupBy('done_date')->map(function ($group) {
-            return [
-                'completed' => $group->where('status', 'completed')->count(),
-                'ongoing' => $group->where('status', 'ongoing')->count(),
-            ];
-        })->sortKeys(); 
+    // Initialize history with counts for each date
+    $history = $dates->mapWithKeys(function ($date) use ($data) {
+        $completed = $data->where('date_added', $date)->where('status', 'completed')->count();
+        $ongoing = $data->where('date_added', $date)->where('status', 'ongoing')->count();
 
-        return response()->json([
-            'total' => $total,
+        return [$date => [
             'completed' => $completed,
             'ongoing' => $ongoing,
-            'history' => $history,
-        ]);
-    }
+        ]];
+    });
+
+    // Calculate totals
+    $total = $data->count();
+    $completed = $data->where('status', 'completed')->count();
+    $ongoing = $data->where('status', 'ongoing')->count();
+
+    return response()->json([
+        'total' => $total,
+        'completed' => $completed,
+        'ongoing' => $ongoing,
+        'history' => $history,
+    ]);
+}
+
 }

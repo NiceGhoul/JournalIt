@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="min-h-screen bg-customDark p-4">
-        <!-- Success Alert -->
+   
         @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        <!-- Error Alert -->
+
         @if (session()->has('fail'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ session('fail') }}
@@ -47,8 +47,8 @@
 
                         <!-- Content -->
                         <div class="flex-1">
-                            <h5 class="text-lg font-semibold">{{ $todo->name }}</h5>
-                            <p class="text-black">
+                            <h5 class="text-lg text-white font-bold">{{ $todo->name }}</h5>
+                            <p class="text-white">
                                 Target: {{ $todo->target }} <br>
                                 Status: {{ $todo->status }}
                             </p>

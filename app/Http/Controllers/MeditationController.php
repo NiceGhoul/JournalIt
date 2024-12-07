@@ -43,7 +43,7 @@ class MeditationController extends Controller
         $meditations = Meditation::where('user_id', $user->id)
             ->where('status',  'completed')
             ->orderBy('done_date', 'desc')
-            ->paginate(3);
+            ->paginate(5);
 
         return view('meditationHistory', compact('meditations'));  
     }
@@ -52,8 +52,8 @@ class MeditationController extends Controller
         $user = Auth::user();
         $meditations = Meditation::where('user_id', $user->id)
             ->where('status', '!=', 'completed')
-            ->orderBy('done_date', 'desc')
-            ->paginate(3);
+            ->orderBy('date_added', 'asc')
+            ->paginate(4);
 
         return view('meditation', compact('meditations'));    
     }
@@ -102,6 +102,7 @@ public function stopMeditation(Request $request, $id)
     
     if($timeRemaining === 0){
         $meditation->status = 'completed';
+        $meditation->done_date = now();
     } else if($timeRemaining === $targetTimeInSeconds){
         $meditation->status = 'not-started';
     }else{

@@ -25,7 +25,7 @@ class ToDoListController extends Controller
             'logo' => $request->file('logo') ? $request->file('logo')->store('logos', 'public') : null,
             'target' => $request->input('target'),
             'progress' => 0,
-            'status' => 'Pending',
+            'status' => 'ongoing',
             'user_id' => Auth::id(),
             'date_added' => now(),
         ]);
@@ -38,8 +38,8 @@ class ToDoListController extends Controller
         $user = Auth::user();
         $toDoLists = ToDoList::where('user_id', $user->id)
             ->where('status', '!=', 'completed')
-            ->orderBy('to_do_date', 'desc') // Order by created_at in descending order
-            ->paginate(3); // Paginate with 3 items per page
+            ->orderBy('to_do_date', 'asc') 
+            ->paginate(4); 
 
         return view('todolist', compact('toDoLists'));
     }
@@ -48,7 +48,7 @@ class ToDoListController extends Controller
         $user = Auth::user();
         $toDoLists = ToDoList::where('user_id', $user->id)
             ->where('status', 'completed')
-            ->paginate(3); // Paginate with 3 items per page
+            ->paginate(5); 
 
         return view('todolisthistory', compact('toDoLists'));
     }
@@ -57,7 +57,6 @@ class ToDoListController extends Controller
         $user = Auth::user();
         $todo = ToDoList::findOrFail($id);
 
-        // Update progress tugas
         $todo->progress += $request->input('progress');
 
         if ($todo->progress >= $todo->target) {
@@ -65,7 +64,6 @@ class ToDoListController extends Controller
             $todo->done_date = now();
             $todo->save();
 
-            // Panggil UserAchievementController untuk memberikan achievement
             
         }
 
@@ -76,10 +74,8 @@ class ToDoListController extends Controller
 
     public function destroy($id)
     {
-        // Find the todo item by ID
         $todo = ToDoList::findOrFail($id);
-
-        // Delete the todo
+        
         $todo->delete();
 
         return redirect()->back()->with('success', 'Todo deleted successfully.');

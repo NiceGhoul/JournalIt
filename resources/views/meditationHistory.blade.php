@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="min-h-screen bg-customDark p-4">
-    <!-- Success Alert -->
+
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -12,7 +12,7 @@
         </div>
     @endif
 
-    <!-- Error Alert -->
+
     @if (session()->has('fail'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('fail') }}

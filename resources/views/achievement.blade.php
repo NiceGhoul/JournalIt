@@ -6,7 +6,6 @@
 <div class="min-h-screen bg-customDark text-white p-4">
     <h1 class="text-3xl font-bold text-center mb-6">Achievements</h1>
 
-    <!-- Tabs for Unlocked and Locked Achievements -->
     <div class="flex justify-center mb-6">
         <button 
             id="unlocked-tab" 
@@ -22,11 +21,10 @@
         </button>
     </div>
 
-    <!-- Unlocked Achievements Grid -->
     <div id="unlocked-achievements" class="grid grid-cols-1 sm:grid-cols-3 gap-6 hidden">
         @if($unlockedAchievements->isEmpty()) 
             <div class="col-span-full text-center text-gray-500">
-                <p class="text-8xl">WOW SO EMPTY</p>
+                <p class="text-8xl">NO ACHIEVEMENTS</p>
             </div>
         @else
             @foreach ($unlockedAchievements as $achievement)
@@ -44,14 +42,13 @@
         @endif
     </div>
 
-    <!-- Locked Achievements Grid -->
     <div id="locked-achievements" class="grid grid-cols-1 sm:grid-cols-3 gap-6 hidden">
         @foreach ($allAchievements as $achievement)
             <div class="relative bg-themeLight hover:bg-theme shadow-lg rounded-lg p-3 flex flex-col justify-between h-full">
-                <!-- Cek apakah achievement sudah diunlock oleh user -->
+
                 @if ($achievement->users->where('id', Auth::id())->first() === null || 
                     $achievement->users->where('id', Auth::id())->first()->pivot->status !== 'Unlocked')
-                    <!-- Jika achievement belum diunlock oleh user, tampilkan overlay -->
+
                     <div class="absolute inset-0 bg-gray-700 opacity-50 rounded-lg"></div>
                     <div class="absolute inset-0 flex justify-center items-center">
                         <p class="text-white text-lg font-semibold">Locked</p>
@@ -70,13 +67,12 @@
 </div>
 
 <script>
-    // Function to toggle between unlocked and locked achievements
+
     function toggleTab(tab) {
-        // Hide both tabs
+
         document.getElementById('unlocked-achievements').classList.add('hidden');
         document.getElementById('locked-achievements').classList.add('hidden');
         
-        // Show the selected tab
         if (tab === 'unlocked') {
             document.getElementById('unlocked-achievements').classList.remove('hidden');
             document.getElementById('unlocked-tab').classList.add('bg-themeLight');
@@ -92,7 +88,6 @@
         }
     }
 
-    // Default to show unlocked achievements
     document.addEventListener('DOMContentLoaded', function () {
         toggleTab('unlocked');
     });

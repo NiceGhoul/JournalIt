@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="min-h-screen bg-customDark p-4">
-        <!-- Success Alert -->
         @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -12,7 +11,6 @@
             </div>
         @endif
 
-        <!-- Error Alert -->
         @if (session()->has('fail'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ session('fail') }}
@@ -23,9 +21,9 @@
         <div class="flex justify-between items-center pb-4 border-b border-gray-600">
             <h1 class="text-2xl font-bold text-white">To Do List</h1>
             <div class="flex space-x-4">
-                <div class="container flex justify-end items-center gap-4 "> <!-- Set margin to 0 -->
+                <div class="container flex justify-end items-center gap-4 "> 
 
-                    <!-- Add Button -->
+
                     <button type="button"
                         class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200"
                         data-bs-toggle="modal" data-bs-target="#addToDoModal">
@@ -36,7 +34,7 @@
                         Add
                     </button>
 
-                    <!-- Delete Button (enable delete mode) -->
+
                     <button type="button"
                         class="flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
                         onclick="showCancelButton()" id="delete-btn">
@@ -47,7 +45,7 @@
                         Delete
                     </button>
 
-                    <!-- Cancel Button (show only in delete mode) -->
+
                     <button type="button"
                         class="hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
                         onclick="showDeleteButton()" id="cancel-btn">
@@ -59,7 +57,7 @@
                         Cancel
                     </button>
 
-                    <!-- History Button -->
+
                     <a href="{{ route('ToDoListHistory') }}"
                         class="flex items-center bg-gray-600 text-white py-2 px-4 rounded-lg shadow hover:bg-gray-700 hover:shadow-lg transition duration-200">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -75,59 +73,57 @@
                 @forelse ($toDoLists as $todo)
                     <div
                         class="bg-customBlue shadow-md rounded-lg p-4 flex flex-row items-start transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 border-2 border-black">
-                        <!-- Image -->
+
                         @if ($todo->logo)
                             <img src="{{ asset($todo->logo) }}"
                                 class="h-24 w-24 object-cover rounded-md mr-4 border-3 border-black" alt="ToDo Logo">
                         @endif
 
-                        <!-- Content -->
+   
                         <div class="todo-container w-full">
-                            <!-- Todo Name -->
+    
                             <h5 class="text-lg font-semibold text-white">{{ $todo->name }}</h5>
 
-                            <!-- To-Do Date (Below the Name) -->
                             <p class="text-white font-semibold">
                                 To Do Date: {{ \Carbon\Carbon::parse($todo->to_do_date)->format('F j, Y') }}
                             </p>
 
-                            <!-- Flex Row for Target, Progress, and Status -->
                             <div class="flex justify-between text-gblack mt-2 w-full">
-                                <!-- Target -->
+     
                                 <div class="mr-4 text-white font-semibold">
                                     <p>Target: {{ $todo->target }}</p>
                                 </div>
 
-                                <!-- Progress Bar -->
+           
                                 @php
                                     $progressPercentage = $todo->progress ? ($todo->progress / $todo->target) * 100 : 0;
                                 @endphp
                                 <div class="flex-1 mx-4 mt-1.5 relative w-full">
-                                    <!-- Outer container for the progress bar -->
+
                                     <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-md">
-                                        <!-- Inner progress bar with gradient, smooth transition, and rounded corners -->
+    
                                         <div class="h-4 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300 ease-out"
                                             style="width: {{ $progressPercentage }}%;">
-                                            <!-- Percentage text inside the progress bar -->
+  
                                             <span style="top: -2px;"
                                                 class="text-xs text-black absolute right-0 pr-2">{{ round($progressPercentage) }}%</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Status -->
+
                                 <div>
                                     <p class="font-semibold text-white">Status: {{ $todo->status }}</p>
                                 </div>
                             </div>
 
                             <div class="container flex justify-center items-center gap-2 mt-4">
-                                <!-- Update Progress Button -->
+
                                 <button type="button" class="font-semibold flex items-center bg-blue-500 text-white py-2 px-2 rounded-lg shadow hover:bg-blue-600 hover:shadow-lg transition duration-200 border-black border-1"
                                     data-bs-toggle="modal" data-bs-target="#updateProgressModal{{ $todo->id }}">
                                     Update Progress
                                 </button>
-                                <!-- Delete Todo Button (Trigger Modal) -->
+      
                                 <button type="button"
                                     class="font-semibold hidden flex items-center bg-red-500 text-white py-2 px-2 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
                                     id="del-todo-{{ $todo->id }}" data-bs-toggle="modal"
@@ -140,7 +136,7 @@
                         </div>
 
                     </div>
-                    <!-- Modal for Delete Confirmation -->
+
                     <div class="modal fade" id="confirmDeleteModal{{ $todo->id }}" tabindex="-1"
                         aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -154,10 +150,10 @@
                                     Are you sure you want to delete this TodoList?
                                 </div>
                                 <div class="modal-footer">
-                                    <!-- Cancel Button -->
+
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-                                    <!-- Delete Confirmation Button -->
+        
                                     <form action="{{ route('DeleteToDoList', $todo->id) }}" method="POST"
                                         class="inline-block">
                                         @csrf
@@ -169,7 +165,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal for Updating Progress -->
+
                     <div class="modal fade" id="updateProgressModal{{ $todo->id }}" tabindex="-1"
                         aria-labelledby="updateProgressModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -201,11 +197,9 @@
                 @endforelse
             </div>
         </div>
-        <div>
-            {{ $toDoLists->links('vendor.pagination.custom') }}
-        </div>
+        
 
-        <!-- Modal for Adding To-Do -->
+
         <div class="modal fade" id="addToDoModal" tabindex="-1" aria-labelledby="addToDoModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -249,6 +243,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        {{ $toDoLists->links('vendor.pagination.custom') }}
     </div>
 
     <script>

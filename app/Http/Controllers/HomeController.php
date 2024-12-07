@@ -14,10 +14,12 @@ class HomeController extends Controller
 
         $user = Auth::user();
         $today = Carbon::today();
+
         $todayToDos = ToDoList::where('user_id', $user->id)
             ->whereDate('to_do_date', $today)
             ->where('status', '!=', 'completed')
             ->get();
+
 
         $startOfWeek = Carbon::now()->startOfWeek(); 
         $endOfWeek = Carbon::now()->endOfWeek(); 
@@ -25,6 +27,7 @@ class HomeController extends Controller
             ->whereBetween('to_do_date', [$startOfWeek, $endOfWeek])
             ->where('status', '!=', 'completed')
             ->get();
+        
 
         $startOfMonth = Carbon::now()->startOfMonth();
         $endOfMonth = Carbon::now()->endOfMonth();

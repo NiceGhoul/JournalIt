@@ -23,13 +23,13 @@ class MeditationSeeder extends Seeder
             for ($i = 0; $i < 10; $i++) {
 
                 $doneDate = Carbon::now()->addDays(rand(0, 14));
-                $dateAdded = $doneDate->copy()->subDay(); 
+                $dateAdded = Carbon::now()->subDays(rand(0, 7));
 
                 Meditation::create([
                     'user_id' => $user->id,
                     'name' => $faker->sentence,
                     'date_added' => $dateAdded->toDateString(),
-                    'done_date' => $doneDate->toDateString(),
+                    // 'done_date' => $doneDate->toDateString(),
                     'status' => $faker->randomElement(['not-started']),
                     'timer' => $faker->time('H:i:s',  rand(0, 0)),
                     'target_timer' => $faker->time('H:i:s',  rand(60, 180)),

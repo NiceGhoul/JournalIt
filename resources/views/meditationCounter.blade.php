@@ -33,10 +33,9 @@
 
         <div class="min-h-screen bg-gray-900 text-white flex items-center justify-center">
 
-            <!-- Success Alert -->
 
             <div class="text-center space-y-8">
-                <label class="text-3xl font-bold" for="title">current Session:</label>
+                <label class="text-3xl font-bold" for="title">Current Session:</label>
                 <br>
                 <label class="text-2xl font-bold" for="title">{{ $meditation->name }}</label>
                 <div class="relative flex items-center justify-center w-full h-96">
@@ -97,6 +96,7 @@
         }
 
         function startMeditation() {
+            document.getElementById('start-button').classList.add('hidden');
             document.getElementById('stop-label').classList.add('hidden');
             console.log('calling startMeditation');
             timer = setInterval(() => {
@@ -126,7 +126,7 @@
         }
 
         function stopMeditations() {
-
+            document.getElementById('start-button').classList.remove('hidden');
             console.log('calling stopMeditation');
             clearInterval(timer);
 
@@ -151,7 +151,6 @@
             const circumference = 2 * Math.PI * 60;
             const progress = duration / initialDuration;
 
-            // Calculate stroke-dashoffset for progress
             const offset = circumference * (1 - progress);
             progressCircle.style.strokeDashoffset = offset;
         }

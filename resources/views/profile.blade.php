@@ -40,7 +40,7 @@
                         <h4 class="mt-3 text-3xl font-bold">{{ $user->name }}</h4>
                     </div>
         
-                    <div class="flex flex-col text-white p-4 border border-b-2 gap-3 text-left text-md rounded-lg w-100">
+                    <div class="flex flex-col text-white p-4 font-bold border border-b-2 gap-3 text-left text-md rounded-lg w-100">
                         <span>Age: {{ $user->age }}</span>
                         <span>Email: {{ $user->email }}</span>
                         <span>Gender: {{ ucfirst($user->gender) }}</span>
@@ -70,15 +70,13 @@
                 <div class="card-body border border-b-2">
                     <h5 class="text-3xl font-bold mb-4">Latest Achievements</h5>
                     
-                    <!-- Menampilkan 3 achievement terbaru -->
                     @if($latestAchievements->isEmpty())
                         <p><i class="bi bi-trophy"></i> No achievements unlocked yet.</p>
                     @else
                         <div class="row row-cols-1 row-cols-md-3 g-4">
                             @foreach($latestAchievements as $achievement)
                                 <div class="col">
-                                    <div class="card nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg bg-theme hover:bg-themeLight text-white shadow-lg border-0 rounded">
-                                        <!-- Pastikan gambar terpusat dengan class d-flex dan justify-content-center -->
+                                    <div class="card nav-link transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg bg-theme hover:bg-themeLight text-white shadow-lg border-1 border-white rounded">
                                         <div class="card-body d-flex flex-column align-items-center">
                                             @if($achievement->logo)
                                             <a href="{{route('achievementPage')}}" class="d-block">

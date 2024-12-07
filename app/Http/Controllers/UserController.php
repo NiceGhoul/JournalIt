@@ -10,7 +10,7 @@ use App\Http\Controllers\UserAchievementController;
 
 class UserController extends Controller
 {
-    // page logic
+
     public function getLoginPage()
     {
         return view('login');
@@ -21,7 +21,7 @@ class UserController extends Controller
         return view('register');
     }
 
-    // user register logic
+
     public function store(Request $request)
     {
 
@@ -46,7 +46,7 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'account succesfully created!');
     }
-    // User Login logic
+
     public function accountLogin(Request $request)
     {
 
@@ -97,10 +97,10 @@ class UserController extends Controller
     $achievementController = new UserAchievementController();
     $achievementController->giveProfilePicAchievements($user);
 
-    // Store the uploaded image
+
     $path = $request->file('profile_picture')->move(public_path('images'), $request->file('profile_picture')->getClientOriginalName());
 
-    // Update the user's profile picture path in the database
+
     $user->update([
         'profile_picture' => 'images/' . $request->file('profile_picture')->getClientOriginalName(),
     ]);
