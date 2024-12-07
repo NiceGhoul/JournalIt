@@ -231,10 +231,10 @@
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="logo" class="form-label">Logo</label>
                             <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
-                        </div>
+                        </div> --}}
 
                         <div class="mb-3">
                             <label for="timer">Durasi Waktu (Minutes):</label>

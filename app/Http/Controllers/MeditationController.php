@@ -26,7 +26,7 @@ class MeditationController extends Controller
         Meditation::create([
            
             'name' => $request->input('name'),
-            'logo' => $request->file('logo') ? $request->file('logo')->store('logos', 'public') : null,
+            'logo' => "/assets/meditateLogo.jpg",
             'target_timer'=>$time,
             'timer'=>gmdate('H:i:s', 0),
             'status' => 'not-started',

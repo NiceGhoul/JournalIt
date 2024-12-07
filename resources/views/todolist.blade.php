@@ -223,12 +223,12 @@
                                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2"
                                     id="to_do_date" name="to_do_date" required>
                             </div>
-                            <div class="mb-4">
+                            {{-- <div class="mb-4">
                                 <label for="logo" class="block text-sm font-medium text-gray-700">Logo</label>
                                 <input type="file"
                                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2"
                                     id="logo" name="logo" accept="image/*">
-                            </div>
+                            </div> --}}
                             <div class="mb-4">
                                 <label for="target" class="block text-sm font-medium text-gray-700">Target</label>
                                 <input type="number"

@@ -22,7 +22,7 @@ class ToDoListController extends Controller
         ToDoList::create([
             'name' => $request->input('name'),
             'to_do_date' => $request->input('to_do_date'),
-            'logo' => $request->file('logo') ? $request->file('logo')->store('logos', 'public') : null,
+            'logo' => "/assets/todoLogo.jpg",
             'target' => $request->input('target'),
             'progress' => 0,
             'status' => 'ongoing',
@@ -54,7 +54,6 @@ class ToDoListController extends Controller
     }
     public function updateProgress(Request $request, $id)
     {
-        $user = Auth::user();
         $todo = ToDoList::findOrFail($id);
 
         $todo->progress += $request->input('progress');
