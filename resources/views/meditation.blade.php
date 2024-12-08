@@ -25,7 +25,7 @@
 
             <div class="container flex justify-end items-center gap-4">
                 <button type="button"
-                    class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200"
+                    class="flex items-center bg-themeLighter text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 hover:shadow-lg transition duration-200"
                     data-bs-toggle="modal" data-bs-target="#addToDoModal">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 2a1 1 0 011 1v6h6a1 1 0 110 2h-6v6a1 1 0 11-2 0v-6H3a1 1 0 110-2h6V3a1 1 0 011-1z" />
@@ -35,7 +35,7 @@
 
      
                 <button type="button"
-                    class="flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                    class="flex items-center bg-red-400 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
                     onclick="showCancelButton()" id="delete-btn">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="currentColor">
                         <path
@@ -130,14 +130,14 @@
                                 <div class="container flex justify-center items-center gap-4">
                                     <form action="{{ route('meditation.counter', $meditation->id) }}" method="GET">
                                         <button type="submit"
-                                            class="font-semibold flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200 border-black border-1">
+                                            class="font-semibold flex items-center bg-themeLighter text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200 border-black border-1">
                                             Start
                                         </button>
                                     </form>
 
                                     <button type="submit" data-bs-toggle="modal"
                                         data-bs-target="#confirmDeleteModal{{ $meditation->id }}"
-                                        class="font-semibold hidden flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
+                                        class="font-semibold hidden flex items-center bg-red-400 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
                                         id="del-session-{{ $meditation->id }}">
                                         Delete
                                     </button>
@@ -156,7 +156,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Are you sure you want to delete this Todo list?
+                                                Are you sure you want to delete this Meditation Session?
                                             </div>
                                             <div class="modal-footer">
                

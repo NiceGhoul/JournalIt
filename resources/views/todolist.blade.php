@@ -25,7 +25,7 @@
 
 
                     <button type="button"
-                        class="flex items-center bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 hover:shadow-lg transition duration-200"
+                        class="flex items-center bg-themeLighter text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 hover:shadow-lg transition duration-200"
                         data-bs-toggle="modal" data-bs-target="#addToDoModal">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -36,7 +36,7 @@
 
 
                     <button type="button"
-                        class="flex items-center bg-red-500 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
+                        class="flex items-center bg-red-400 text-white py-2 px-4 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200"
                         onclick="showCancelButton()" id="delete-btn">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="currentColor">
                             <path
@@ -119,13 +119,13 @@
 
                             <div class="container flex justify-center items-center gap-2 mt-4">
 
-                                <button type="button" class="font-semibold flex items-center bg-blue-500 text-white py-2 px-2 rounded-lg shadow hover:bg-blue-600 hover:shadow-lg transition duration-200 border-black border-1"
+                                <button type="button" class="font-semibold flex items-center bg-themeLighter text-white py-2 px-2 rounded-lg shadow hover:bg-blue-600 hover:shadow-lg transition duration-200 border-black border-1"
                                     data-bs-toggle="modal" data-bs-target="#updateProgressModal{{ $todo->id }}">
                                     Update Progress
                                 </button>
       
                                 <button type="button"
-                                    class="font-semibold hidden flex items-center bg-red-500 text-white py-2 px-2 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
+                                    class="font-semibold hidden flex items-center bg-red-400 text-white py-2 px-2 rounded-lg shadow hover:bg-red-600 hover:shadow-lg transition duration-200 border-black border-1"
                                     id="del-todo-{{ $todo->id }}" data-bs-toggle="modal"
                                     data-bs-target="#confirmDeleteModal{{ $todo->id }}">
                                     Delete Todo List

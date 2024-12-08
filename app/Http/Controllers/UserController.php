@@ -120,6 +120,19 @@ class UserController extends Controller
         return back()->with('success', 'Profile picture updated successfully!');
     }
 
+    public function updateBio(Request $request)
+    {
+        $request->validate([
+            'bio' => 'required|string|max:500',
+        ]);
+
+        $user = Auth::user();
+        $user->bio = $request->input('bio');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Bio updated successfully!');
+    }
+
 
 
 

@@ -45,7 +45,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end bg-gray-800 text-white" aria-labelledby="profileDropdown">
                     <li>
-                        <a class="dropdown-item text-white hover:bg-blue-500" href="{{ route('ProfilePage') }}">Profile Page</a>
+                        <a class="dropdown-item text-white hover:bg-themeLighter" href="{{ route('ProfilePage') }}">Profile Page</a>
                     </li>
                     <li>
                         <a class="dropdown-item text-white hover:bg-red-500" href="{{ route('logout') }}"

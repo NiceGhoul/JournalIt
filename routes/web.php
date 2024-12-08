@@ -20,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ProfilePage', [UserController::class, 'profile'])->name('ProfilePage');
     Route::post('/logout', [UserController::class, 'accountLogout'])->name('logout');
     Route::post('/upload-profile-picture', [UserController::class, 'uploadProfilePicture'])->name('uploadProfilePicture');
+    Route::post('/update-bio', [UserController::class, 'updateBio'])->name('update.bio');
 
     Route::get('/todolist', [ToDoListController::class, 'show'])->name('ToDoList');
     Route::get('/todolist/history', [ToDoListController::class, 'showHistory'])->name('ToDoListHistory');
