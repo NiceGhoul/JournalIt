@@ -37,12 +37,11 @@ class UserAchievementController extends Controller
             $this->unlockAchievement($user, 'Discipline Enough');
         }
         if ($completedMeditate >= 5) {
-            $this->unlockAchievement($user, 'Discipline Enough');
+            $this->unlockAchievement($user, 'Great Discipline');
         }
         if ($completedMeditate >= 20) {
-            $this->unlockAchievement($user, 'Discipline Enough');
+            $this->unlockAchievement($user, 'Hard Core Discipline');
         }
-
         $meditation = Meditation::where('user_id', $user->id)->get();
         $totalTime = 0;
         foreach($meditation as $med){
